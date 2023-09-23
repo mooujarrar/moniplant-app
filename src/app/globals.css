@@ -1,5 +1,11 @@
 @tailwind base;
 @tailwind components;
+
+@font-face {
+  font-family: 'figtree';
+  src: local('figtree'), url(../../public/fonts/Figtree-VariableFont_wght.ttf) format('ttf');
+}
+
 @tailwind utilities;
 
 :root {
@@ -17,6 +23,8 @@
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
