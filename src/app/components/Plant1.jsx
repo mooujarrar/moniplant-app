@@ -10,7 +10,10 @@ export function Plant1(props) {
   const { nodes, materials } = useGLTF('/models/plant1.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.Plant_Yucca.geometry} material={materials['10461_Yucca_Plant_v1']} />
+      <group position={[0, -113.445, 0]} rotation={[Math.PI / 2, 0, 0]} scale={227.159}>
+        <mesh geometry={nodes.awa_outdoor.geometry} material={materials['Material.002']} />
+        <mesh geometry={nodes.awa_outdoor_1.geometry} material={materials['10461_Yucca_Plant_v1']} />
+      </group>
     </group>
   )
 }
