@@ -62,7 +62,7 @@ export const Experience = () => {
   return (
     <>
       <ambientLight intensity={0.1} />
-      <Environment preset='sunset' />
+      <Environment preset='sunset'  />
 
       <Room
         position-z={-15}
@@ -181,7 +181,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
       <MotionConfig
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
-        <motion3d.group whileHover={{ scale: 1.1 }}>
+        <motion3d.group whileHover={ { scale: active ? 1 : 1.1 }}>
           <Text
             font='fonts/Figtree-VariableFont_wght.ttf'
             fontSize={0.2}
@@ -199,7 +199,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
             onPointerLeave={() => setHovered(null)}
           >
             <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
-              <ambientLight intensity={1} />
+              <ambientLight intensity={0.5} />
               <Environment preset='sunset' />
               {children}
               <mesh>
