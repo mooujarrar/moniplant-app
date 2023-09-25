@@ -14,7 +14,7 @@ function PlantInfoCard() {
         ease: "easeInOut",
         times: [0, 0.2, 0.5, 0.8, 1],
       }}
-      className='font-sans max-w-xl mx-auto bg-opacity-75 bg-green-200 rounded-lg overflow-hidden shadow-xl'
+      className='font-sans max-w-xl mx-auto bg-opacity-60 bg-green-200 rounded-lg overflow-hidden shadow-xxl'
     >
       <div className='px-8 py-6'>
         <div className='font-bold text-2xl mb-4'>Plant Information</div>
