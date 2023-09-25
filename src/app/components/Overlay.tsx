@@ -7,7 +7,7 @@ function Overlay() {
     useEffect(() => {
     }, [active])
     return (
-        <div className="absolute left-20 top-14 z-1" >
+        <div className="absolute left-20 top-14 z-10" >
             {active && <PlantInfoCard />}
         </div>
     );
