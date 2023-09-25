@@ -23,30 +23,37 @@ export const Experience = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const controlsRef = useRef<CameraControls>(null);
   const scene = useThree((state) => state.scene);
-  const broadcastActive = useStore((state: any) => state.setActive)
+  const broadcastActive = useStore((state: any) => state.setActive);
 
   const handleActiveChanged = (activePortal: string | null) => {
     setActive(activePortal);
     broadcastActive(activePortal);
-  }
+  };
 
   useCursor(hovered !== null);
 
   useEffect(() => {
-    if (active) {
-      const targetPosition = new THREE.Vector3();
-      scene.getObjectByName(active)?.getWorldPosition(targetPosition);
-      controlsRef?.current?.setLookAt(
-        0,
-        0,
-        4,
-        targetPosition.x,
-        targetPosition.y,
-        targetPosition.z,
-        true
-      );
-    } else {
-      controlsRef?.current?.setLookAt(0, 0, 16, 0, 0, 0, true);
+    const cameraControl = controlsRef.current;
+    if (cameraControl) {
+      if (active) {
+        const targetPosition = new THREE.Vector3();
+        scene.getObjectByName(active)?.getWorldPosition(targetPosition);
+        cameraControl.setLookAt(
+          0,
+          0,
+          4,
+          targetPosition.x,
+          targetPosition.y,
+          targetPosition.z,
+          true
+        );
+        cameraControl.minDistance = 4;
+        cameraControl.maxDistance = 4;
+      } else {
+        cameraControl.setLookAt(0, 0, 16, 0, 0, 0, true);
+        cameraControl.minDistance = 16;
+        cameraControl.maxDistance = 16;
+      }
     }
   }, [active]);
   return (
@@ -62,6 +69,8 @@ export const Experience = () => {
       <group>
         <CameraControls
           ref={controlsRef}
+          minDistance={16}
+          maxDistance={16}
           maxPolarAngle={Math.PI / 1.5}
           minPolarAngle={Math.PI / 2.5}
           maxAzimuthAngle={Math.PI / 8}
