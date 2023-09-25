@@ -16,6 +16,7 @@ import { Plant3 } from "./Plant3";
 import { Plant5 } from "./Plant5";
 import { Room } from "./Room";
 import useStore from "./state-management/activePortal";
+import { Plant4 } from "./Plant4";
 
 export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -94,7 +95,7 @@ export const Experience = () => {
           setHovered={setHovered}
         >
           <Plant2
-            scale={0.02}
+            scale={0.03}
             position-y={-1}
             hovered={hovered === "Plant 2"}
           />
@@ -126,7 +127,7 @@ export const Experience = () => {
           hovered={hovered}
           setHovered={setHovered}
         >
-          <Plant5 scale={0.1} position-y={-1} hovered={hovered === "Plant 4"} />
+          <Plant4 scale={1} position-y={-1} hovered={hovered === "Plant 4"} />
         </PlantStage>
       </group>
     </>
