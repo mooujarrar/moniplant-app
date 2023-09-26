@@ -18,8 +18,8 @@ import { Plant5 } from "./Plant5";
 import { Room } from "./Room";
 import useStore from "./state-management/activePortal";
 import { Plant4 } from "./Plant4";
-import { MotionConfig, motion } from "framer-motion";
-import { MotionCanvas, motion as motion3d } from "framer-motion-3d";
+import { MotionConfig } from "framer-motion";
+import { motion as motion3d } from "framer-motion-3d";
 
 export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -62,7 +62,7 @@ export const Experience = () => {
   return (
     <>
       <ambientLight intensity={0.1} />
-      <Environment preset='sunset'  />
+      <Environment preset='sunset' />
 
       <Room
         position-z={-15}
@@ -178,38 +178,40 @@ const PlantStage: React.FC<PlantStageProps> = ({
 
   return (
     <group {...props}>
-      <MotionConfig
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      >
-        <motion3d.group whileHover={ { scale: active ? 1 : 1.1 }}>
-          <Text
-            font='fonts/Figtree-VariableFont_wght.ttf'
-            fontSize={0.2}
-            position={[0, 1.2, 0.051]}
-            anchorY={"bottom"}
-          >
-            {name}
-            <meshBasicMaterial color={color} toneMapped={false} />
-          </Text>
-          <RoundedBox
-            name={name}
-            args={[2, 3, 0.1]}
-            onDoubleClick={() => setActive(active === name ? null : name)}
-            onPointerEnter={() => setHovered(name)}
-            onPointerLeave={() => setHovered(null)}
-          >
-            <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
-              <ambientLight intensity={0.5} />
-              <Environment preset='sunset' />
-              {children}
-              <mesh>
-                <sphereGeometry args={[5, 64, 64]} />
-                <meshStandardMaterial map={map} side={THREE.BackSide} />
-              </mesh>
-            </MeshPortalMaterial>
-          </RoundedBox>
-        </motion3d.group>
-      </MotionConfig>
+      <motion3d.group whileHover={{
+        scale: active ? 1 : 1.1, transition: {
+          type: "spring",
+          stiffness: 400,
+          damping: 10
+        }
+      }}>
+        <Text
+          font='fonts/Figtree-VariableFont_wght.ttf'
+          fontSize={0.2}
+          position={[0, 1.2, 0.051]}
+          anchorY={"bottom"}
+        >
+          {name}
+          <meshBasicMaterial color={color} toneMapped={false} />
+        </Text>
+        <RoundedBox
+          name={name}
+          args={[2, 3, 0.1]}
+          onDoubleClick={() => setActive(active === name ? null : name)}
+          onPointerEnter={() => setHovered(name)}
+          onPointerLeave={() => setHovered(null)}
+        >
+          <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
+            <ambientLight intensity={0.5} />
+            <Environment preset='sunset' />
+            {children}
+            <mesh>
+              <sphereGeometry args={[5, 64, 64]} />
+              <meshStandardMaterial map={map} side={THREE.BackSide} />
+            </mesh>
+          </MeshPortalMaterial>
+        </RoundedBox>
+      </motion3d.group>
     </group>
   );
 };
