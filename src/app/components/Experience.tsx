@@ -6,6 +6,8 @@ import {
   CameraControls,
   useCursor,
   useTexture,
+  Center,
+  Text3D,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import { easing } from "maath";
@@ -18,8 +20,65 @@ import { Plant5 } from "./Plant5";
 import { Room } from "./Room";
 import useStore from "./state-management/activePortal";
 import { Plant4 } from "./Plant4";
-import { MotionConfig } from "framer-motion";
 import { motion as motion3d } from "framer-motion-3d";
+import { Flex, Box } from "@react-three/flex";
+
+export const InfoCard = () => {
+  const { width, height } = useThree((state) => state.viewport);
+  const font = 'fonts/Supply Center_Regular.json';
+  const color = '#008000';
+  return (
+    <>
+      <motion3d.group>
+        <Center
+          bottom
+          right
+          position={[-width / 2 - 2, height / 2 + 1, 0]}
+          rotation-y={Math.PI / 6}
+        >
+          <Flex flexDirection='column' align="center" justify="space-around" wrap="wrap">
+            <Box centerAnchor>
+              <Text3D
+                size={0.12}
+                font={font}
+              >
+                Plant Information 
+                <meshStandardMaterial color={color} />
+              </Text3D>
+            </Box>
+            <Box centerAnchor>
+              <Text3D
+                size={0.08}
+                font={font}
+              >
+                Temperature: 
+                <meshStandardMaterial color={color} />
+              </Text3D>
+            </Box>
+            <Box centerAnchor>
+              <Text3D
+                size={0.08}
+                font={font}
+              >
+                Humidity: 
+                <meshStandardMaterial color={color} />
+              </Text3D>
+            </Box>
+            <Box centerAnchor>
+              <Text3D
+                size={0.08}
+                font={font}
+              >
+                Soil Moisture: 
+                <meshStandardMaterial color={color} />
+              </Text3D>
+            </Box>
+          </Flex>
+        </Center>
+      </motion3d.group>
+    </>
+  );
+};
 
 export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -41,21 +100,28 @@ export const Experience = () => {
       if (active) {
         const targetPosition = new THREE.Vector3();
         scene.getObjectByName(active)?.getWorldPosition(targetPosition);
-        cameraControl.setLookAt(
-          0,
-          0,
-          4,
-          targetPosition.x,
-          targetPosition.y,
-          targetPosition.z,
-          true
-        );
-        cameraControl.minDistance = 4;
-        cameraControl.maxDistance = 4;
+        cameraControl
+          .setLookAt(
+            0,
+            0,
+            4,
+            targetPosition.x,
+            targetPosition.y,
+            targetPosition.z,
+            true
+          )
+          .then(() => {
+            cameraControl.minDistance = 4;
+            cameraControl.maxDistance = 4;
+            cameraControl.maxAzimuthAngle = cameraControl.azimuthAngle;
+            cameraControl.minAzimuthAngle = cameraControl.azimuthAngle;
+          });
       } else {
         cameraControl.setLookAt(0, 0, 16, 0, 0, 0, true);
         cameraControl.minDistance = 16;
         cameraControl.maxDistance = 16;
+        cameraControl.maxAzimuthAngle = Math.PI / 8;
+        cameraControl.minAzimuthAngle = -Math.PI / 8;
       }
     }
   }, [active]);
@@ -84,7 +150,7 @@ export const Experience = () => {
           position-x={-4}
           position-z={1.5}
           name='Plant 1'
-          color='black'
+          color='#013220'
           active={active}
           setActive={handleActiveChanged}
           hovered={hovered}
@@ -95,12 +161,13 @@ export const Experience = () => {
             position-y={-1}
             hovered={hovered === "Plant 1"}
           />
+          {active && <InfoCard />}
         </PlantStage>
         <PlantStage
           rotation-y={Math.PI / 12}
           position-x={-1.5}
           name='Plant 2'
-          color='black'
+          color='#013220'
           active={active}
           setActive={handleActiveChanged}
           hovered={hovered}
@@ -116,7 +183,7 @@ export const Experience = () => {
           rotation-y={-Math.PI / 12}
           position-x={1.5}
           name='Plant 3'
-          color='black'
+          color='#013220'
           active={active}
           setActive={handleActiveChanged}
           hovered={hovered}
@@ -133,7 +200,7 @@ export const Experience = () => {
           position-x={4}
           position-z={1.5}
           name='Plant 4'
-          color='black'
+          color='#013220'
           active={active}
           setActive={handleActiveChanged}
           hovered={hovered}
@@ -178,15 +245,18 @@ const PlantStage: React.FC<PlantStageProps> = ({
 
   return (
     <group {...props}>
-      <motion3d.group whileHover={{
-        scale: active ? 1 : 1.1, transition: {
-          type: "spring",
-          stiffness: 400,
-          damping: 10
-        }
-      }}>
+      <motion3d.group
+        whileHover={{
+          scale: active ? 1 : 1.1,
+          transition: {
+            type: "spring",
+            stiffness: 400,
+            damping: 10,
+          },
+        }}
+      >
         <Text
-          font='fonts/Figtree-VariableFont_wght.ttf'
+          font='fonts/SupplyCenter-0W9nz.ttf'
           fontSize={0.2}
           position={[0, 1.2, 0.051]}
           anchorY={"bottom"}
