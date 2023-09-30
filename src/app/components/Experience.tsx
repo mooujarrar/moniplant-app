@@ -1,100 +1,20 @@
 import {
   Environment,
-  MeshPortalMaterial,
-  RoundedBox,
-  Text,
   CameraControls,
   useCursor,
-  useTexture,
-  Center,
-  Text3D,
 } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
-import { easing } from "maath";
 import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Plant1 } from "./Plant1";
 import { Plant2 } from "./Plant2";
 import { Plant3 } from "./Plant3";
+import { Plant4 } from "./Plant4";
 import { Plant5 } from "./Plant5";
 import { Room } from "./Room";
 import useStore from "./state-management/activePortal";
-import { Plant4 } from "./Plant4";
-import { motion as motion3d } from "framer-motion-3d";
-import { Flex, Box } from "@react-three/flex";
-
-interface InfoCardProps {
-  plantName: string;
-  temperature?: string;
-  humidity?: string;
-  soilMoisture?: string;
-}
-
-const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, soilMoisture }) => {
-  const { width, height } = useThree((state) => state.viewport);
-  const font = 'fonts/Supply Center_Regular.json';
-  const color = '#008000';
-  return (
-    <>
-      <Center
-        bottom
-        right
-        position={[-width / 2 - 2, height / 2 + 1, -0.01]}
-        rotation-y={Math.PI / 6}
-      >
-        <RoundedBox
-          args={[2, 2, 0.1]}
-        >
-        </RoundedBox>
-      </Center>
-      <Center
-        bottom
-        right
-        position={[-width / 2 - 2, height / 2 + 1, 0]}
-        rotation-y={Math.PI / 6}
-      >
-        <Flex width={2} height={2} flexWrap="wrap" flexDirection='column' align="center" justify="space-around" wrap="wrap">
-          <Box>
-            <Text3D
-              size={0.12}
-              font={font}
-            >
-              {plantName}
-              <meshStandardMaterial color={color} />
-            </Text3D>
-          </Box>
-          <Box>
-            <Text3D
-              size={0.08}
-              font={font}
-            >
-              Temperature:
-              <meshStandardMaterial color={color} />
-            </Text3D>
-          </Box>
-          <Box>
-            <Text3D
-              size={0.08}
-              font={font}
-            >
-              Humidity:
-              <meshStandardMaterial color={color} />
-            </Text3D>
-          </Box>
-          <Box>
-            <Text3D
-              size={0.08}
-              font={font}
-            >
-              Soil Moisture:
-              <meshStandardMaterial color={color} />
-            </Text3D>
-          </Box>
-        </Flex>
-      </Center>
-    </>
-  );
-};
+import InfoCard from "./InfoCard";
+import PlantStage from "./PlantStage";
 
 export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -144,7 +64,7 @@ export const Experience = () => {
   }, [active, scene]);
   return (
     <>
-      <ambientLight intensity={0.1} />
+      <ambientLight intensity={0.5} />
       <Environment preset='sunset' />
 
       <Room
@@ -235,78 +155,5 @@ export const Experience = () => {
         </PlantStage>
       </group>
     </>
-  );
-};
-
-interface PlantStageProps {
-  children: React.ReactNode;
-  texture?: string;
-  name: string;
-  color: string;
-  active: string | null;
-  setActive: (name: string | null) => void;
-  hovered: string | null;
-  setHovered: (name: string | null) => void;
-}
-
-const PlantStage: React.FC<PlantStageProps> = ({
-  children,
-  texture,
-  name,
-  color,
-  active,
-  setActive,
-  hovered,
-  setHovered,
-  ...props
-}) => {
-  const map = useTexture("texture/green.jpg");
-  const portalMaterial = useRef<any>();
-
-  useFrame((_state, delta) => {
-    const worldOpen = active === name;
-    easing.damp(portalMaterial.current, "blend", worldOpen ? 1 : 0, 0.2, delta);
-  });
-
-  return (
-    <group {...props}>
-      <motion3d.group
-        whileHover={{
-          scale: active ? 1 : 1.1,
-          transition: {
-            type: "spring",
-            stiffness: 400,
-            damping: 10,
-          },
-        }}
-      >
-        <Text
-          font='fonts/SupplyCenter-0W9nz.ttf'
-          fontSize={0.2}
-          position={[0, 1.2, 0.051]}
-          anchorY={"bottom"}
-        >
-          {name}
-          <meshBasicMaterial color={color} toneMapped={false} />
-        </Text>
-        <RoundedBox
-          name={name}
-          args={[2, 3, 0.1]}
-          onDoubleClick={() => setActive(active === name ? null : name)}
-          onPointerEnter={() => setHovered(name)}
-          onPointerLeave={() => setHovered(null)}
-        >
-          <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
-            <ambientLight intensity={0.5} />
-            <Environment preset='sunset' />
-            {children}
-            <mesh>
-              <sphereGeometry args={[5, 64, 64]} />
-              <meshStandardMaterial map={map} side={THREE.BackSide} />
-            </mesh>
-          </MeshPortalMaterial>
-        </RoundedBox>
-      </motion3d.group>
-    </group >
   );
 };
