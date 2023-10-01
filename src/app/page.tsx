@@ -9,7 +9,6 @@ export default function Home() {
     <>
       {/*<Overlay />*/}
       <Canvas className="relative z-0" shadows camera={{ position: [0, 0, 16], fov: 40 }}>
-        <color attach='background' args={["#ececec"]} />
         <Experience />
       </Canvas>
     </>
