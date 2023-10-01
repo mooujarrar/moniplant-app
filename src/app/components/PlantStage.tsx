@@ -13,7 +13,7 @@ import * as THREE from "three";
 
 interface PlantStageProps {
     children: React.ReactNode;
-    texture?: string;
+    texture: string;
     name: string;
     color: string;
     active: string | null;
@@ -33,7 +33,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
     setHovered,
     ...props
 }) => {
-    const map = useTexture("texture/green.jpg");
+    const map = useTexture(texture);
     const portalMaterial = useRef<any>();
 
     useFrame((_state, delta) => {
@@ -42,45 +42,44 @@ const PlantStage: React.FC<PlantStageProps> = ({
     });
 
     return (
-        <group {...props}>
-            <motion3d.group
-                whileHover={{
-                    scale: active ? 1 : 1.1,
-                    transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 10,
-                    },
-                }}
+        <motion3d.group
+            {...props}
+            whileHover={{
+                scale: active ? 1 : 1.1,
+                transition: {
+                    type: "spring",
+                    stiffness: 400,
+                    damping: 10,
+                },
+            }}
+        >
+            <Text
+                font='fonts/Figtree-VariableFont_wght.ttf'
+                fontSize={0.5}
+                position={[0, 0.9, 0.051]}
+                anchorY={"bottom"}
             >
-                <Text
-                    font='fonts/SupplyCenter-0W9nz.ttf'
-                    fontSize={0.2}
-                    position={[0, 1.2, 0.051]}
-                    anchorY={"bottom"}
-                >
-                    {name}
-                    <meshBasicMaterial color={color} toneMapped={false} />
-                </Text>
-                <RoundedBox
-                    name={name}
-                    args={[2, 3, 0.1]}
-                    onDoubleClick={() => setActive(active === name ? null : name)}
-                    onPointerEnter={() => setHovered(name)}
-                    onPointerLeave={() => setHovered(null)}
-                >
-                    <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
-                        <ambientLight intensity={0.5} />
-                        <Environment preset='apartment' />
-                        {children}
-                        <mesh>
-                            <sphereGeometry args={[20, 64, 64]} />
-                            <meshStandardMaterial map={map} side={THREE.BackSide} />
-                        </mesh>
-                    </MeshPortalMaterial>
-                </RoundedBox>
-            </motion3d.group>
-        </group >
+                {name}
+                <meshBasicMaterial color={color} toneMapped={false} />
+            </Text>
+            <RoundedBox
+                name={name}
+                args={[2, 3, 0.1]}
+                onDoubleClick={() => setActive(active === name ? null : name)}
+                onPointerEnter={() => setHovered(name)}
+                onPointerLeave={() => setHovered(null)}
+            >
+                <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
+                    <ambientLight intensity={1} />
+                    <Environment preset='sunset' />
+                    {children}
+                    <mesh>
+                        <sphereGeometry args={[5, 64, 64]} />
+                        <meshStandardMaterial map={map} side={THREE.BackSide} />
+                    </mesh>
+                </MeshPortalMaterial>
+            </RoundedBox>
+        </motion3d.group>
     );
 };
 
