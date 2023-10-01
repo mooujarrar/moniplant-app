@@ -4,6 +4,9 @@ import {
     RoundedBox,
     Center,
     Text3D,
+    MeshDistortMaterial,
+    GradientTexture,
+    Svg,
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
@@ -26,10 +29,12 @@ const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, s
                 position={[-width / 2 - 2, height / 2 + 1, -0.01]}
                 rotation-y={Math.PI / 6}
             >
-                <RoundedBox
-                    args={[2, 2, 0.1]}
-                >
-                </RoundedBox>
+                <mesh>
+                    <planeGeometry args={[2, 2.2, 32, 32]} />
+                    <MeshDistortMaterial speed={2} distort={0.3}>
+                        <GradientTexture stops={[0, 0.5, 1]} colors={['#3e8127', '#47e639', '#868e43']} size={100} />
+                    </MeshDistortMaterial>
+                </mesh>
             </Center>
             <Center
                 bottom
@@ -47,32 +52,47 @@ const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, s
                             <meshStandardMaterial color={color} />
                         </Text3D>
                     </Box>
-                    <Box>
-                        <Text3D
-                            size={0.08}
-                            font={font}
-                        >
-                            Temperature:
-                            <meshStandardMaterial color={color} />
-                        </Text3D>
+                    <Box flexDirection="row" flexWrap="no-wrap" alignItems={'baseline'}>
+                        <Box>
+                            <Text3D
+                                size={0.08}
+                                font={font}
+                            >
+                                Temperature
+                                <meshStandardMaterial color={color} />
+                            </Text3D>
+                        </Box>
+                        <Box>
+                            <Svg position-z={0.2} src={"icons/thermometer.svg"} scale={0.0025} />
+                        </Box>
                     </Box>
-                    <Box>
-                        <Text3D
-                            size={0.08}
-                            font={font}
-                        >
-                            Humidity:
-                            <meshStandardMaterial color={color} />
-                        </Text3D>
+                    <Box flexDirection="row" flexWrap="no-wrap" alignItems={'baseline'}>
+                        <Box>
+                            <Text3D
+                                size={0.08}
+                                font={font}
+                            >
+                                Humidity
+                                <meshStandardMaterial color={color} />
+                            </Text3D>
+                        </Box>
+                        <Box marginLeft={0.1}>
+                            <Svg position-z={0.2} src={"icons/humidity.svg"} scale={0.0008} />
+                        </Box>
                     </Box>
-                    <Box>
-                        <Text3D
-                            size={0.08}
-                            font={font}
-                        >
-                            Soil Moisture:
-                            <meshStandardMaterial color={color} />
-                        </Text3D>
+                    <Box flexDirection="row" flexWrap="no-wrap" alignItems={'baseline'}>
+                        <Box>
+                            <Text3D
+                                size={0.08}
+                                font={font}
+                            >
+                                Soil Moisture
+                                <meshStandardMaterial color={color} />
+                            </Text3D>
+                        </Box>
+                        <Box marginLeft={0.1}>
+                            <Svg position-z={0.2} src={"icons/moisture-sensor.svg"} scale={0.0008} />
+                        </Box>
                     </Box>
                 </Flex>
             </Center>
