@@ -17,6 +17,14 @@ import useStore from "./state-management/activePortal";
 import InfoCard from "./InfoCard";
 import PlantStage from "./PlantStage";
 
+export enum EPlants {
+  PLANT1 = 'Plant 1',
+  PLANT2 = 'Plant 2',
+  PLANT3 = 'Plant 3',
+  PLANT4 = 'Plant 4',
+  PLANT5 = 'Plant 5',
+}
+
 export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
@@ -46,20 +54,9 @@ export const Experience = () => {
             targetPosition.y,
             targetPosition.z,
             true
-          )
-          .then(() => {
-            cameraControl.minDistance = 4;
-            cameraControl.maxDistance = 4;
-            cameraControl.maxAzimuthAngle = cameraControl.azimuthAngle;
-            cameraControl.minAzimuthAngle = cameraControl.azimuthAngle;
-          });
+          );
       } else {
-        cameraControl.setLookAt(0, 0, 16, 0, 0, 0, true).then(() => {
-          cameraControl.minDistance = 16;
-          cameraControl.maxDistance = 16;
-          cameraControl.maxAzimuthAngle = Math.PI / 8;
-          cameraControl.minAzimuthAngle = -Math.PI / 8;
-        });
+        cameraControl.setLookAt(0, 0, 16, 0, 0, 0, true);
       }
     }
   }, [active, scene]);
@@ -70,9 +67,8 @@ export const Experience = () => {
         <mesh scale={100}>
           <sphereGeometry args={[1, 64, 64]} />
           <LayerMaterial side={THREE.BackSide}>
-            <Color color={'blue'} alpha={1} mode="normal" />
-            <Depth colorA="#00ffff" colorB="#ff8f00" alpha={0.5} mode="normal" near={0} far={100} origin={[0, 0, 0]} />
-            <Noise mapping="local" type="cell" scale={0.5} mode="softlight" />
+            <Depth colorA="#bfd834" colorB="#0DAEAD" alpha={0.5} mode="softlight" near={0} far={100} origin={[0, 0, 0]} />
+            <Noise colorA="#bfd834" colorB="#72cc50" colorC="#019B75" colorD="#0DAEAD" mapping="local" type="cell" scale={1} mode="normal" />
           </LayerMaterial>
         </mesh>
       </Environment>
@@ -86,8 +82,9 @@ export const Experience = () => {
       */}
       <CameraControls
         ref={controlsRef}
-        minDistance={16}
-        maxDistance={16}
+        distance={16}
+        mouseButtons={{ wheel: 0, left: 1, right: 0, middle: 0 }}
+        touches={{ one: 0, two: 0, three: 0 }}
         maxPolarAngle={Math.PI / 1.5}
         minPolarAngle={Math.PI / 2.5}
         maxAzimuthAngle={Math.PI / 8}
@@ -97,7 +94,7 @@ export const Experience = () => {
         rotation-y={Math.PI / 6}
         position-x={-4}
         position-z={1.5}
-        name='Plant 1'
+        name={EPlants.PLANT1}
         color='#013220'
         texture={"texture/green.jpg"}
         active={active}
@@ -109,15 +106,15 @@ export const Experience = () => {
           <Plant1
             scale={0.01}
             position-y={-1}
-            hovered={hovered === "Plant 1"}
+            hovered={hovered === EPlants.PLANT1}
           />
         </Suspense>
-        {active && <InfoCard plantName={'Plant 1'} />}
+        {active === EPlants.PLANT1 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT1} />}
       </PlantStage>
       <PlantStage
         rotation-y={Math.PI / 12}
         position-x={-1.5}
-        name='Plant 2'
+        name={EPlants.PLANT2}
         color='#013220'
         texture={"texture/green.jpg"}
         active={active}
@@ -129,14 +126,15 @@ export const Experience = () => {
           <Plant2
             scale={0.03}
             position-y={-1}
-            hovered={hovered === "Plant 2"}
+            hovered={hovered === EPlants.PLANT2}
           />
         </Suspense>
+        {active === EPlants.PLANT2 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT2} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 12}
         position-x={1.5}
-        name='Plant 3'
+        name={EPlants.PLANT3}
         color='#013220'
         texture={"texture/green.jpg"}
         active={active}
@@ -148,15 +146,16 @@ export const Experience = () => {
           <Plant3
             scale={0.02}
             position-y={-1}
-            hovered={hovered === "Plant 3"}
+            hovered={hovered === EPlants.PLANT3}
           />
         </Suspense>
+        {active === EPlants.PLANT3 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT3} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 6}
         position-x={4}
         position-z={1.5}
-        name='Plant 4'
+        name={EPlants.PLANT4}
         color='#013220'
         texture={"texture/green.jpg"}
         active={active}
@@ -165,8 +164,9 @@ export const Experience = () => {
         setHovered={setHovered}
       >
         <Suspense fallback={null}>
-          <Plant4 scale={1} position-y={-1} hovered={hovered === "Plant 4"} />
+          <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
         </Suspense>
+        {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4} />}
       </PlantStage>
     </>
   );

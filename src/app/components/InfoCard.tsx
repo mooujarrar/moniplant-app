@@ -1,14 +1,13 @@
 
 import { Flex, Box } from "@react-three/flex";
 import {
-    RoundedBox,
-    Center,
     Text3D,
-    MeshDistortMaterial,
     GradientTexture,
     Svg,
+    Billboard,
+    GradientType,
 } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { Tablet } from "./Tablet";
 
 interface InfoCardProps {
     plantName: string;
@@ -17,35 +16,22 @@ interface InfoCardProps {
     soilMoisture?: string;
 }
 
-const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, soilMoisture }) => {
-    const { width, height } = useThree((state) => state.viewport);
+const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, soilMoisture, ...props }) => {
     const font = 'fonts/Supply Center_Regular.json';
-    const color = '#008000';
+    const color = '#72CC50';
     return (
-        <>
-            <Center
-                bottom
-                right
-                position={[-width / 2 - 2, height / 2 + 1, -0.01]}
-                rotation-y={Math.PI / 6}
-            >
-                <mesh>
-                    <planeGeometry args={[2, 2.2, 32, 32]} />
-                    <MeshDistortMaterial speed={2} distort={0.3}>
-                        <GradientTexture stops={[0, 0.5, 1]} colors={['#3e8127', '#47e639', '#868e43']} size={100} />
-                    </MeshDistortMaterial>
-                </mesh>
-            </Center>
-            <Center
-                bottom
-                right
-                position={[-width / 2 - 2, height / 2 + 1, 0]}
-                rotation-y={Math.PI / 6}
-            >
-                <Flex width={2} height={2} flexWrap="wrap" flexDirection='column' align="center" justify="space-around" wrap="wrap">
+            <Billboard {...props} follow={true} lockY={false} lockX={false} lockZ={false} scale={0.5}>
+                <Tablet scale={0.05} rotation-x={Math.PI / 2} position-y={-0.2} />
+                {/*<mesh position-z={0.1}>
+                    <planeGeometry args={[1.8, 2.2, 32, 32]} />
+                    <meshBasicMaterial>
+                        <GradientTexture type={GradientType.Radial} innerCircleRadius={0.2} stops={[0, 0.5, 1]} colors={['#3e8127', '#47e639', '#868e43']} size={20} />
+                    </meshBasicMaterial>
+                </mesh>*/}
+                <Flex width={2} height={2} centerAnchor flexWrap="wrap" flexDirection='column' align="center" justify="space-around" wrap="wrap">
                     <Box>
                         <Text3D
-                            size={0.12}
+                            size={0.15}
                             font={font}
                         >
                             {plantName}
@@ -95,8 +81,7 @@ const InfoCard: React.FC<InfoCardProps> = ({ plantName, temperature, humidity, s
                         </Box>
                     </Box>
                 </Flex>
-            </Center>
-        </>
+            </Billboard>
     );
 };
 
