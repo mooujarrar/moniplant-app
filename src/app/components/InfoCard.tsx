@@ -7,7 +7,7 @@ import {
     Billboard,
     GradientType,
 } from "@react-three/drei";
-import { Tablet } from "./Tablet";
+import { Tablet } from "./Models/Tablet";
 
 interface InfoCardProps {
     plantName: string;

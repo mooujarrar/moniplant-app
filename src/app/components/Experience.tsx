@@ -7,12 +7,12 @@ import { LayerMaterial, Depth, Noise, Color } from 'lamina';
 import { useThree } from "@react-three/fiber";
 import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
-import { Plant1 } from "./Plant1";
-import { Plant2 } from "./Plant2";
-import { Plant3 } from "./Plant3";
-import { Plant4 } from "./Plant4";
-import { Plant5 } from "./Plant5";
-import { Room } from "./Room";
+import { Plant1 } from "./Models/Plant1";
+import { Plant2 } from "./Models/Plant2";
+import { Plant3 } from "./Models/Plant3";
+import { Plant4 } from "./Models/Plant4";
+import { Plant5 } from "./Models/Plant5";
+import { Room } from "./Models/Room";
 import useStore from "./state-management/activePortal";
 import InfoCard from "./InfoCard";
 import PlantStage from "./PlantStage";
@@ -167,7 +167,7 @@ export const Experience = () => {
           <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
         </Suspense>
         {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4} />}
-      </PlantStage>
+    </PlantStage>
     </>
   );
 };
