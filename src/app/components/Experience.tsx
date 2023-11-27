@@ -2,17 +2,15 @@ import {
   Environment,
   CameraControls,
   useCursor,
+  Lightformer,
 } from "@react-three/drei";
-import { LayerMaterial, Depth, Noise, Color } from 'lamina';
 import { useThree } from "@react-three/fiber";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Plant1 } from "./Models/Plant1";
 import { Plant2 } from "./Models/Plant2";
 import { Plant3 } from "./Models/Plant3";
 import { Plant4 } from "./Models/Plant4";
-import { Plant5 } from "./Models/Plant5";
-import { Room } from "./Models/Room";
 import useStore from "./state-management/activePortal";
 import InfoCard from "./InfoCard";
 import PlantStage from "./PlantStage";
@@ -63,14 +61,15 @@ export const Experience = () => {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <Environment background resolution={64}>
-        <mesh scale={100}>
-          <sphereGeometry args={[1, 64, 64]} />
-          <LayerMaterial side={THREE.BackSide}>
-            <Depth colorA="#bfd834" colorB="#0DAEAD" alpha={0.5} mode="softlight" near={0} far={100} origin={[0, 0, 0]} />
-            <Noise colorA="#bfd834" colorB="#72cc50" colorC="#019B75" colorD="#0DAEAD" mapping="local" type="cell" scale={1} mode="normal" />
-          </LayerMaterial>
-        </mesh>
+      <Environment>
+        
+        <Lightformer
+            form="rect" // circle | ring | rect (optional, default = rect)
+            intensity={1} // power level (optional = 1)
+            color="white" // (optional = white)
+            scale={[10, 5, 0]} // Scale it any way you prefer (optional = [1, 1])
+            target={[0, 0, 0]} // Target position (optional = undefined)
+          />
       </Environment>
 
       {/*
@@ -102,13 +101,11 @@ export const Experience = () => {
         hovered={hovered}
         setHovered={setHovered}
       >
-        <Suspense fallback={null}>
-          <Plant1
-            scale={0.01}
-            position-y={-1}
-            hovered={hovered === EPlants.PLANT1}
-          />
-        </Suspense>
+        <Plant1
+          scale={0.01}
+          position-y={-1}
+          hovered={hovered === EPlants.PLANT1}
+        />
         {active === EPlants.PLANT1 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT1} />}
       </PlantStage>
       <PlantStage
@@ -122,13 +119,11 @@ export const Experience = () => {
         hovered={hovered}
         setHovered={setHovered}
       >
-        <Suspense fallback={null}>
-          <Plant2
-            scale={0.03}
-            position-y={-1}
-            hovered={hovered === EPlants.PLANT2}
-          />
-        </Suspense>
+        <Plant2
+          scale={0.03}
+          position-y={-1}
+          hovered={hovered === EPlants.PLANT2}
+        />
         {active === EPlants.PLANT2 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT2} />}
       </PlantStage>
       <PlantStage
@@ -142,13 +137,11 @@ export const Experience = () => {
         hovered={hovered}
         setHovered={setHovered}
       >
-        <Suspense fallback={null}>
-          <Plant3
-            scale={0.02}
-            position-y={-1}
-            hovered={hovered === EPlants.PLANT3}
-          />
-        </Suspense>
+        <Plant3
+          scale={0.02}
+          position-y={-1}
+          hovered={hovered === EPlants.PLANT3}
+        />
         {active === EPlants.PLANT3 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT3} />}
       </PlantStage>
       <PlantStage
@@ -163,11 +156,9 @@ export const Experience = () => {
         hovered={hovered}
         setHovered={setHovered}
       >
-        <Suspense fallback={null}>
-          <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
-        </Suspense>
+        <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
         {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4} />}
-    </PlantStage>
+      </PlantStage>
     </>
   );
 };
