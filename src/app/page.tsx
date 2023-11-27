@@ -2,14 +2,23 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
-import Overlay from "./components/Overlay";
+import { Suspense } from "react";
+import Loader from "./components/Loader";
+import { AdaptiveDpr, AdaptiveEvents, Preload } from "@react-three/drei";
 
 export default function Home() {
   return (
     <>
-      {/*<Overlay />*/}
-      <Canvas className="relative z-0" shadows camera={{ position: [0, 0, 16], fov: 40 }}>
-        <Experience />
+      <Canvas className="relative z-0" shadows camera={{ position: [0, 0, 16], fov: 40 }} >
+        {/* Performance enhancers */}
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
+
+        {/* Performance enhancers */}
+        <Suspense fallback={<Loader />}>
+          <Experience />
+          <Preload all />
+        </Suspense>
       </Canvas>
     </>
   );
