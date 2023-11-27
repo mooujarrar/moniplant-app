@@ -27,6 +27,7 @@ export const Experience = () => {
   const [active, setActive] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const controlsRef = useRef<CameraControls>(null);
+  const { camera } = useThree();
   const scene = useThree((state) => state.scene);
   const broadcastActive = useStore((state: any) => state.setActive);
 
@@ -61,16 +62,8 @@ export const Experience = () => {
   return (
     <>
       <ambientLight intensity={0.5} />
-      <Environment>
-        
-        <Lightformer
-            form="rect" // circle | ring | rect (optional, default = rect)
-            intensity={1} // power level (optional = 1)
-            color="white" // (optional = white)
-            scale={[10, 5, 0]} // Scale it any way you prefer (optional = [1, 1])
-            target={[0, 0, 0]} // Target position (optional = undefined)
-          />
-      </Environment>
+      <spotLight position={[-5, 0, -10]} angle={Math.PI} intensity={40}/>
+      {/*<Environment preset='forest' far={30}/>*/}
 
       {/*
       <Room
@@ -80,6 +73,8 @@ export const Experience = () => {
       />
       */}
       <CameraControls
+        makeDefault
+        camera={camera}
         ref={controlsRef}
         distance={16}
         mouseButtons={{ wheel: 0, left: 1, right: 0, middle: 0 }}

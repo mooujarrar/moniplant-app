@@ -9,7 +9,7 @@ import { AdaptiveDpr, AdaptiveEvents, Preload } from "@react-three/drei";
 export default function Home() {
   return (
     <>
-      <Canvas className="relative z-0" shadows camera={{ position: [0, 0, 16], fov: 40 }} >
+      <Canvas className="relative z-0" shadows camera={{ position: [0, 0, 16], fov: 50 }} >
         {/* Performance enhancers */}
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
