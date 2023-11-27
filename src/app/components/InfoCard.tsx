@@ -2,10 +2,8 @@
 import { Flex, Box } from "@react-three/flex";
 import {
     Text3D,
-    GradientTexture,
     Svg,
     Billboard,
-    GradientType,
 } from "@react-three/drei";
 import { Tablet } from "./Models/Tablet";
 
