@@ -33,3 +33,15 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+
+.wrapper {
+  width: 470px;
+  margin-left: 0px;
+  height: 630px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+}

@@ -53,6 +53,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
         },
       }}
     >
+      {/* Plant name - Title on the Portal */}
       <Text
         font='fonts/Figtree-VariableFont_wght.ttf'
         fontSize={0.5}
@@ -62,9 +63,13 @@ const PlantStage: React.FC<PlantStageProps> = ({
         {name}
         <meshBasicMaterial color={color} toneMapped={false} />
       </Text>
+
+      {/* Border for the Portals */}
       <RoundedBox args={[2 + 0.08, 3 + 0.08, 0.01]}>
         <meshBasicMaterial color='black' />
       </RoundedBox>
+
+      {/* Portal */}
       <RoundedBox
         name={name}
         args={[2, 3, 0.1]}
@@ -72,13 +77,14 @@ const PlantStage: React.FC<PlantStageProps> = ({
         onPointerEnter={() => setHovered(name)}
         onPointerLeave={() => setHovered(null)}
       >
+        {/* Content of the Portal */}
         <MeshPortalMaterial ref={portalMaterial} side={THREE.DoubleSide}>
           <ambientLight intensity={1} />
           <Environment preset='sunset' />
           {children}
           <mesh>
-            <sphereGeometry args={[5, 64, 64]} />
-            <meshStandardMaterial map={map} side={THREE.BackSide} />
+            <sphereGeometry args={[6, 64, 64]} />
+            <meshStandardMaterial map={map} side={THREE.BackSide} transparent={false} />
           </mesh>
         </MeshPortalMaterial>
       </RoundedBox>
