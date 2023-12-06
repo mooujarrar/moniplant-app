@@ -4,6 +4,7 @@ import {
   useCursor,
   Lightformer,
   Html,
+  ContactShadows,
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
@@ -62,12 +63,8 @@ export const Experience = () => {
   }, [active, scene]);
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[-5, 0, -10]} angle={Math.PI} intensity={40} />
-      <mesh position={[0, 0, 16]}>
-        <sphereGeometry args={[18, 64, 64]} />
-        <meshNormalMaterial side={THREE.BackSide} />
-      </mesh>
+      <hemisphereLight groundColor="red" />
+      <Environment background preset="dawn" blur={0.8} />
 
       {/*
       <Room
@@ -105,13 +102,7 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT1}
         />
-        {active === EPlants.PLANT1 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT1}>
-          <Html rotation-y={Math.PI / 6} position-x={-4} position-y={0.18} position-z={2.118} transform occlude distanceFactor={1}>
-            <div style={{ marginRight: '66px' }} className="wrapper">
-              <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
-            </div>
-          </Html>
-        </InfoCard >}
+        {active === EPlants.PLANT1 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT1} />}
       </PlantStage >
       <PlantStage
         rotation-y={Math.PI / 12}
@@ -129,13 +120,7 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT2}
         />
-        {active === EPlants.PLANT2 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT2}>
-          <Html rotation-y={Math.PI / 12} position-x={-1.5} position-y={0.18} position-z={0.351} transform occlude distanceFactor={1}>
-            <div style={{ marginRight: '66px' }} className="wrapper">
-              <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
-            </div>
-          </Html>
-        </InfoCard>}
+        {active === EPlants.PLANT2 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT2} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 12}
@@ -153,13 +138,7 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT3}
         />
-        {active === EPlants.PLANT3 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT3}>
-          <Html rotation-y={-Math.PI / 12} position-x={1.5} position-y={0.18} position-z={0.351} transform occlude distanceFactor={1}>
-            <div style={{ marginLeft: '52px' }} className="wrapper">
-              <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
-            </div>
-          </Html>
-        </InfoCard>}
+        {active === EPlants.PLANT3 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT3} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 6}
@@ -174,13 +153,7 @@ export const Experience = () => {
         setHovered={setHovered}
       >
         <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
-        {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4}>
-          <Html rotation-y={-Math.PI / 6} position-x={4} position-y={0.18} position-z={2.118} transform occlude distanceFactor={1}>
-            <div style={{ marginLeft: '54px' }} className="wrapper">
-              <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
-            </div>
-          </Html>
-        </InfoCard>}
+        {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4} />}
       </PlantStage>
     </>
   );
