@@ -2,9 +2,6 @@ import {
   Environment,
   CameraControls,
   useCursor,
-  Lightformer,
-  Html,
-  ContactShadows,
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +11,6 @@ import { Plant2 } from "./Models/Plant2";
 import { Plant3 } from "./Models/Plant3";
 import { Plant4 } from "./Models/Plant4";
 import useStore from "./state-management/activePortal";
-import InfoCard from "./InfoCard";
 import PlantStage from "./PlantStage";
 
 export enum EPlants {
@@ -102,7 +98,6 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT1}
         />
-        {active === EPlants.PLANT1 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT1} />}
       </PlantStage >
       <PlantStage
         rotation-y={Math.PI / 12}
@@ -120,7 +115,6 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT2}
         />
-        {active === EPlants.PLANT2 && <InfoCard position-x={-1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT2} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 12}
@@ -138,7 +132,6 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT3}
         />
-        {active === EPlants.PLANT3 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT3} />}
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 6}
@@ -153,7 +146,6 @@ export const Experience = () => {
         setHovered={setHovered}
       >
         <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
-        {active === EPlants.PLANT4 && <InfoCard position-x={1} position-y={0.5} position-z={-0.5} plantName={EPlants.PLANT4} />}
       </PlantStage>
     </>
   );
