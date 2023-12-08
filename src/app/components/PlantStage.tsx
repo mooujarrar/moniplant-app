@@ -1,9 +1,7 @@
 import { useFrame } from "@react-three/fiber";
 import { motion as motion3d } from "framer-motion-3d";
 import {
-  BBAnchor,
   Environment,
-  Html,
   MeshPortalMaterial,
   RoundedBox,
   Text,
@@ -70,7 +68,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
 
       {/* Border for the Portals */}
       <RoundedBox args={[2 + 0.08, 3 + 0.08, 0.01]}>
-        <meshBasicMaterial color='black' />
+        <meshBasicMaterial color='#0F5132' />
       </RoundedBox>
 
       {/* Portal */}
@@ -86,12 +84,6 @@ const PlantStage: React.FC<PlantStageProps> = ({
           <ambientLight intensity={1} />
           <Environment preset='sunset' />
           {children}
-          {worldOpen && <group {...props}>
-            <Tablet rotation-x={Math.PI / 2} position-x={0.005} position-z={-0.1} scale={0.0305} />
-            <Html {...props} position-y={0.18} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
-              <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
-            </Html>
-          </group>}
           <mesh>
             <sphereGeometry args={[6, 64, 64]} />
             <meshStandardMaterial map={map} side={THREE.BackSide} transparent={false} />

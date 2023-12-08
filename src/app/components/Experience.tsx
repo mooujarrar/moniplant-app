@@ -2,9 +2,10 @@ import {
   Environment,
   CameraControls,
   useCursor,
+  Html,
 } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { Plant1 } from "./Models/Plant1";
 import { Plant2 } from "./Models/Plant2";
@@ -12,6 +13,7 @@ import { Plant3 } from "./Models/Plant3";
 import { Plant4 } from "./Models/Plant4";
 import useStore from "./state-management/activePortal";
 import PlantStage from "./PlantStage";
+import { Tablet } from "./Models/Tablet";
 
 export enum EPlants {
   PLANT1 = 'Plant 1',
@@ -98,6 +100,16 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT1}
         />
+        {active === EPlants.PLANT1 &&
+          <Suspense fallback={null}>
+            <group position-x={-2} position-y={0.5}>
+              <Tablet position-x={0.28} position-z={-1.13} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={-4} position-z={1.5} rotation-y={Math.PI / 6} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+              </Html>
+            </group>
+          </Suspense>
+        }
       </PlantStage >
       <PlantStage
         rotation-y={Math.PI / 12}
@@ -115,6 +127,16 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT2}
         />
+        {active === EPlants.PLANT2 &&
+          <Suspense fallback={null}>
+            <group position-x={-1.4} position-y={0.5}>
+              <Tablet position-x={0.06} position-z={-0.49} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={-1.5} rotation-y={Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+              </Html>
+            </group>
+          </Suspense>
+        }
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 12}
@@ -132,6 +154,16 @@ export const Experience = () => {
           position-y={-1}
           hovered={hovered === EPlants.PLANT3}
         />
+        {active === EPlants.PLANT3 &&
+          <Suspense fallback={null}>
+            <group position-x={1.4} position-y={0.5}>
+              <Tablet position-x={-0.04} position-z={-0.49} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={1.5} rotation-y={-Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+              </Html>
+            </group>
+          </Suspense>
+        }
       </PlantStage>
       <PlantStage
         rotation-y={-Math.PI / 6}
@@ -146,6 +178,16 @@ export const Experience = () => {
         setHovered={setHovered}
       >
         <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
+        {active === EPlants.PLANT4 &&
+          <Suspense fallback={null}>
+            <group position-x={2} position-y={0.5}>
+              <Tablet position-x={-0.26} position-z={-1.13} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={4} position-z={1.5} rotation-y={-Math.PI / 6} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+              </Html>
+            </group>
+          </Suspense>
+        }
       </PlantStage>
     </>
   );
