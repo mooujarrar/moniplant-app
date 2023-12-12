@@ -14,6 +14,7 @@ import { Plant4 } from "./Models/Plant4";
 import useStore from "./state-management/activePortal";
 import PlantStage from "./PlantStage";
 import { Tablet } from "./Models/Tablet";
+import InfoCard from "./InfoCard";
 
 export enum EPlants {
   PLANT1 = 'Plant 1',
@@ -102,10 +103,10 @@ export const Experience = () => {
         />
         {active === EPlants.PLANT1 &&
           <Suspense fallback={null}>
-            <group position-x={-2} position-y={0.5} rotation-y={Math.PI/4}>
+            <group position-x={-2} position-y={0.5} rotation-y={Math.PI / 4}>
               <Tablet position-x={-0.3} position-z={-0.46} rotation-x={Math.PI / 2} scale={0.04} />
               <Html position-x={-4.85} position-z={-1} rotation-y={Math.PI / 6} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
-                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+                <InfoCard />
               </Html>
             </group>
           </Suspense>
@@ -129,10 +130,10 @@ export const Experience = () => {
         />
         {active === EPlants.PLANT2 &&
           <Suspense fallback={null}>
-            <group position-x={-1.4} position-y={0.5} rotation-y={Math.PI/8}>
+            <group position-x={-1.4} position-y={0.5} rotation-y={Math.PI / 8}>
               <Tablet position-x={-0.3} position-z={-0.5} rotation-x={Math.PI / 2} scale={0.04} />
               <Html position-x={-1.87} position-z={-0.499} rotation-y={Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
-                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+                <InfoCard />
               </Html>
             </group>
           </Suspense>
@@ -159,7 +160,7 @@ export const Experience = () => {
             <group position-x={1.4} position-y={0.5}>
               <Tablet position-x={-0.04} position-z={-0.49} rotation-x={Math.PI / 2} scale={0.04} />
               <Html position-x={1.5} rotation-y={-Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
-                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+                <InfoCard />
               </Html>
             </group>
           </Suspense>
@@ -180,10 +181,10 @@ export const Experience = () => {
         <Plant4 scale={1} position-y={-1} hovered={hovered === EPlants.PLANT4} />
         {active === EPlants.PLANT4 &&
           <Suspense fallback={null}>
-            <group position-x={2} position-y={0.5} rotation-y={-Math.PI/4}>
-              <Tablet position-x={0.33} position-z={-0.46} rotation-x={Math.PI / 2} scale={0.04} />
-              <Html position-x={4.85} position-z={-1} rotation-y={-Math.PI / 6} position-y={0.232} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
-                <iframe width="100%" height='100%' src="https://mooujarrar.pro" title="My portfolio"></iframe>
+            <group position-x={2} position-y={0.2} rotation-y={-Math.PI / 4}>
+              <Tablet position-x={0} position-z={1.19} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={3.71} position-z={0.3} rotation-y={-Math.PI / 6} position-y={0.232} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+                <InfoCard />
               </Html>
             </group>
           </Suspense>
