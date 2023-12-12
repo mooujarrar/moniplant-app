@@ -103,9 +103,9 @@ export const Experience = () => {
         />
         {active === EPlants.PLANT1 &&
           <Suspense fallback={null}>
-            <group position-x={-2} position-y={0.5} rotation-y={Math.PI / 4}>
-              <Tablet position-x={-0.3} position-z={-0.46} rotation-x={Math.PI / 2} scale={0.04} />
-              <Html position-x={-4.85} position-z={-1} rotation-y={Math.PI / 6} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
+            <group position-x={-2} position-y={0.2} rotation-y={Math.PI / 4}>
+              <Tablet position-x={-0.33} position-z={1.25} rotation-x={Math.PI / 2} scale={0.04} />
+              <Html position-x={-4} position-z={0.5} rotation-y={Math.PI / 6} position-y={0.232} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
                 <InfoCard />
               </Html>
             </group>
@@ -131,7 +131,7 @@ export const Experience = () => {
         {active === EPlants.PLANT2 &&
           <Suspense fallback={null}>
             <group position-x={-1.4} position-y={0.5} rotation-y={Math.PI / 8}>
-              <Tablet position-x={-0.3} position-z={-0.5} rotation-x={Math.PI / 2} scale={0.04} />
+              <Tablet position-x={-0.3} position-z={-0.54} rotation-x={Math.PI / 2} scale={0.04} />
               <Html position-x={-1.87} position-z={-0.499} rotation-y={Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
                 <InfoCard />
               </Html>
@@ -158,7 +158,7 @@ export const Experience = () => {
         {active === EPlants.PLANT3 &&
           <Suspense fallback={null}>
             <group position-x={1.4} position-y={0.5}>
-              <Tablet position-x={-0.04} position-z={-0.49} rotation-x={Math.PI / 2} scale={0.04} />
+              <Tablet position-x={-0.04} position-z={-0.51} rotation-x={Math.PI / 2} scale={0.04} />
               <Html position-x={1.5} rotation-y={-Math.PI / 12} position-y={0.23} style={{ userSelect: 'none' }} as='div' className="wrapper" castShadow receiveShadow transform occlude distanceFactor={1}>
                 <InfoCard />
               </Html>
