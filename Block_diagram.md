@@ -1,16 +1,37 @@
-
+# Global microservices iteractions diagram
 ```mermaid
 graph TD
-  Frontend --> APIGateway
-  APIGateway --> PlantService
-  APIGateway --> SensorService
-  APIGateway --> NotificationService
+  subgraph Frontend
+    A(Frontend)
+  end
 
-  PlantService -->|CRUD Operations| DataService
-  SensorService -->|Record Sensor Data| DataService
-  NotificationService -->|Thresholds, ex: Low Moisture| DataService
+  subgraph API_Gateway
+    B(API Gateway)
+  end
 
-  DataService -->|Data Storage/Retrieval| Database
+  subgraph Kafka_Broker
+    C(Kafka Broker)
+  end
+
+  subgraph Plant_Service
+    D(Plant Service)
+  end
+
+  subgraph Sensor_Service
+    E(Sensor Service)
+  end
+
+  subgraph Notification_Service
+    F(Notification Service)
+  end
+
+  A -->|GraphQL| B
+  B -->|Kafka Events| C
+  C -->|Sensor Data| E
+  E -->|Threshold Check| F
+  E -->|Sensor Info| D
+  F -->|Raise Flag| C
+  D -->|Plant Data| B
 ```
 
 +-----------------+       +-------------------+       +------------------+
