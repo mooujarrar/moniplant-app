@@ -64,3 +64,31 @@ body {
 .info-card::-webkit-scrollbar-corner {
   background-color: #f1f1f1; /* Light gray color */
 }
+
+/* Add this to your styles or use a stylesheet */
+.tooltip {
+  visibility: hidden;
+  width: 120px;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.relativeDiv:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.relativeDiv {
+  position: relative;
+  display: inline-block;
+}

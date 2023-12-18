@@ -1,8 +1,13 @@
-import { create } from 'zustand'
 
-const useStore = create((set) => ({
-  active: null,
-  setActive: (active: string | null) => set(() => ({ active: active })),
-}))
+// activePageStore.ts
+import { create } from 'zustand';
 
-export default useStore;
+interface ActivePortalStore {
+  activePortal: string | null;
+  setActivePortal: (active: string | null) => void;
+}
+
+export const useActivePortalStore = create<ActivePortalStore>((set) => ({
+  activePortal: null,
+  setActivePortal: (portal) => set({ activePortal: portal }),
+}));

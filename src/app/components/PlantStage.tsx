@@ -10,7 +10,7 @@ import {
 import { easing } from "maath";
 import { useRef, useState } from "react";
 import * as THREE from "three";
-import { Tablet } from "./Models/Tablet";
+import { useActivePortalStore } from "./state-management/activePortal";
 
 interface PlantStageProps {
   children: React.ReactNode;
@@ -37,6 +37,12 @@ const PlantStage: React.FC<PlantStageProps> = ({
   const map = useTexture(texture);
   const portalMaterial = useRef<any>();
   const [worldOpen, setWorldOpen] = useState(false);
+  const { setActivePortal } = useActivePortalStore();
+
+  const handleActiveChanged = (activePortal: string | null) => {
+    setActivePortal(activePortal)
+    setActive(activePortal);
+  };
 
   useFrame((_state, delta) => {
     setWorldOpen(active === name);
@@ -75,7 +81,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
       <RoundedBox
         name={name}
         args={[2, 3, 0.1]}
-        onDoubleClick={() => setActive(active === name ? null : name)}
+        onDoubleClick={() => handleActiveChanged(active === name ? null : name)}
         onPointerEnter={() => setHovered(name)}
         onPointerLeave={() => setHovered(null)}
       >
