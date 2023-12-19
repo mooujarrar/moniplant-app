@@ -1,4 +1,4 @@
-import { Billboard, CameraControls, Environment, Html, useFont } from "@react-three/drei";
+import { CameraControls, Environment, Html, useFont } from "@react-three/drei";
 import { Monitoring } from "./Monitoring";
 import OverlayButtons from "./UI";
 import { EPage, useActivePageStore } from "./state-management/activePage";
@@ -16,6 +16,19 @@ export const Experience = () => {
   const controlsRef = useRef<CameraControls>(null);
   const { camera } = useThree();
   const scene = useThree((state) => state.scene);
+
+  const calculatePosition = (el: THREE.Object3D<THREE.Object3DEventMap>, camera: THREE.Camera, size: { width: number; height: number; }) => {
+    // Use the position of the default camera to calculate the HTML element position
+    const cameraPosition = new THREE.Vector3();
+    camera.getWorldPosition(cameraPosition);
+    // Your custom logic to calculate the position
+    const x = cameraPosition.x + size.width / 2;
+    const y = cameraPosition.y + size.height / 2;
+    const z = cameraPosition.z;
+
+    // Return the calculated position as an array [x, y, z]
+    return [x, y, z];
+  };
 
   useEffect(() => {
     const cameraControl = controlsRef.current;
@@ -64,16 +77,12 @@ export const Experience = () => {
         camera={camera}
         ref={controlsRef}
         distance={16}
-        mouseButtons={{ wheel: 0, left: activePortal ? 0 : 1, right: 0, middle: 0 }}
+        mouseButtons={{ wheel: 0, left: 0, right: 0, middle: 0 }}
         touches={{ one: 0, two: 0, three: 0 }}
-        maxPolarAngle={Math.PI / 1.5}
-        minPolarAngle={Math.PI / 2.5}
-        maxAzimuthAngle={activePortal ? Infinity : Math.PI / 8}
-        minAzimuthAngle={activePortal ? -Infinity : -Math.PI / 8}
       />
       {!activePortal &&
-        <Html as="div" className="h-screen w-screen" center>
-          <OverlayButtons />
+        <Html as="div" calculatePosition={calculatePosition} className="h-screen w-screen" center>
+            <OverlayButtons />
         </Html>
       }
       <Monitoring />
