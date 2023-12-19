@@ -1,12 +1,9 @@
 import {
     Environment,
-    CameraControls,
     useCursor,
     Html,
   } from "@react-three/drei";
-  import { useThree } from "@react-three/fiber";
-  import { Suspense, useEffect, useRef, useState } from "react";
-  import * as THREE from "three";
+  import { Suspense, useState } from "react";
   import { Plant1 } from "./Models/Plant1";
   import { Plant2 } from "./Models/Plant2";
   import { Plant3 } from "./Models/Plant3";
@@ -14,6 +11,7 @@ import {
   import PlantStage from "./PlantStage";
   import { Tablet } from "./Models/Tablet";
   import InfoCard from "./InfoCard";
+import { MONITOR_POSITION } from "./Positions";
   
   export enum EPlants {
     PLANT1 = 'Plant 1',
@@ -26,42 +24,15 @@ import {
   export const Monitoring = () => {
     const [active, setActive] = useState<string | null>(null);
     const [hovered, setHovered] = useState<string | null>(null);
-    const controlsRef = useRef<CameraControls>(null);
-    const { camera } = useThree();
-    const scene = useThree((state) => state.scene);
   
     const handleActiveChanged = (activePortal: string | null) => {
       setActive(activePortal);
     };
   
     useCursor(hovered !== null);
-  
-    useEffect(() => {
-      const cameraControl = controlsRef.current;
-      if (cameraControl) {
-        if (active) {
-          const targetPosition = new THREE.Vector3();
-          scene.getObjectByName(active)?.getWorldPosition(targetPosition);
-          cameraControl
-            .setLookAt(
-              0,
-              0,
-              4,
-              targetPosition.x,
-              targetPosition.y,
-              targetPosition.z,
-              true
-            );
-        } else {
-          cameraControl.setLookAt(0, 0, 16, 0, 0, 0, true);
-        }
-      }
-    }, [active, scene]);
+ 
     return (
-      <>
-        <hemisphereLight groundColor="red" />
-        <Environment background preset="dawn" blur={0.8} />
-  
+      <group position={MONITOR_POSITION} rotation-y={-Math.PI/2}>
         {/*
         <Room
           position-z={-15}
@@ -69,18 +40,6 @@ import {
           rotation={[Math.PI / 6, -Math.PI / 4, 0]}
         />
         */}
-        <CameraControls
-          makeDefault
-          camera={camera}
-          ref={controlsRef}
-          distance={16}
-          mouseButtons={{ wheel: 0, left: active ? 0 : 1, right: 0, middle: 0 }}
-          touches={{ one: 0, two: 0, three: 0 }}
-          maxPolarAngle={Math.PI / 1.5}
-          minPolarAngle={Math.PI / 2.5}
-          maxAzimuthAngle={active ? Infinity : Math.PI / 8}
-          minAzimuthAngle={active ? -Infinity : -Math.PI / 8}
-        />
         <PlantStage
           rotation-y={Math.PI / 6}
           position-x={-4}
@@ -187,7 +146,7 @@ import {
             </Suspense>
           }
         </PlantStage>
-      </>
+      </group>
     );
   };
   
