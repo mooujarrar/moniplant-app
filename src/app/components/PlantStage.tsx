@@ -8,9 +8,8 @@ import {
   useTexture,
 } from "@react-three/drei";
 import { easing } from "maath";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import * as THREE from "three";
-import { useActivePortalStore } from "./state-management/activePortal";
 
 interface PlantStageProps {
   children: React.ReactNode;
@@ -36,17 +35,13 @@ const PlantStage: React.FC<PlantStageProps> = ({
 }) => {
   const map = useTexture(texture);
   const portalMaterial = useRef<any>();
-  const [worldOpen, setWorldOpen] = useState(false);
-  const { setActivePortal } = useActivePortalStore();
 
   const handleActiveChanged = (activePortal: string | null) => {
-    setActivePortal(activePortal)
     setActive(activePortal);
   };
 
   useFrame((_state, delta) => {
-    setWorldOpen(active === name);
-    easing.damp(portalMaterial.current, "blend", worldOpen ? 1 : 0, 0.2, delta);
+    easing.damp(portalMaterial.current, "blend", active === name ? 1 : 0, 0.1, delta, 2);
   });
 
   return (

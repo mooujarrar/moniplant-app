@@ -12,6 +12,7 @@ import PlantStage from "./PlantStage";
 import { Tablet } from "./Models/Tablet";
 import InfoCard from "./InfoCard";
 import { MONITOR_POSITION } from "./Positions";
+import { useActivePortalStore } from "./state-management/activePortal";
 
 export enum EPlants {
   PLANT1 = 'Plant 1',
@@ -24,8 +25,10 @@ export enum EPlants {
 export const Monitoring = () => {
   const [active, setActive] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
+  const { setActivePortal } = useActivePortalStore();
 
   const handleActiveChanged = (activePortal: string | null) => {
+    setActivePortal(activePortal)
     setActive(activePortal);
   };
 
