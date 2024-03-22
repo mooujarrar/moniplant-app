@@ -1,3 +1,23 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    // I suggest you add those two rules:
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-const": "error",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.jsx"],
+      "rules": {
+        "quotes": "off"
+      }
+    }
+  ]
 }
