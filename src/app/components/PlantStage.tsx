@@ -1,23 +1,22 @@
-import { useFrame } from "@react-three/fiber";
-import { motion as motion3d } from "framer-motion-3d";
+import { useFrame } from '@react-three/fiber';
+import { motion as motion3d } from 'framer-motion-3d';
 import {
   Environment,
   MeshPortalMaterial,
   RoundedBox,
   Text,
   useTexture,
-} from "@react-three/drei";
-import { easing } from "maath";
-import { useRef } from "react";
-import * as THREE from "three";
+} from '@react-three/drei';
+import { easing } from 'maath';
+import { useRef } from 'react';
+import * as THREE from 'three';
+import { useActivePortalStore } from './state-management/activePortal';
 
 interface PlantStageProps {
   children: React.ReactNode;
   texture: string;
   name: string;
   color: string;
-  active: string | null;
-  setActive: (name: string | null) => void;
   hovered: string | null;
   setHovered: (name: string | null) => void;
 }
@@ -27,30 +26,36 @@ const PlantStage: React.FC<PlantStageProps> = ({
   texture,
   name,
   color,
-  active,
-  setActive,
   hovered,
   setHovered,
   ...props
 }) => {
   const map = useTexture(texture);
   const portalMaterial = useRef<any>();
+  const { activePortal, setActivePortal } = useActivePortalStore();
 
   const handleActiveChanged = (activePortal: string | null) => {
-    setActive(activePortal);
+    setActivePortal(activePortal);
   };
 
   useFrame((_state, delta) => {
-    easing.damp(portalMaterial.current, "blend", active === name ? 1 : 0, 0.1, delta, 2);
+    easing.damp(
+      portalMaterial.current,
+      'blend',
+      activePortal === name ? 1 : 0,
+      0.1,
+      delta,
+      2
+    );
   });
 
   return (
     <motion3d.group
       {...props}
       whileHover={{
-        scale: active ? 1 : 1.1,
+        scale: activePortal ? 1 : 1.1,
         transition: {
-          type: "spring",
+          type: 'spring',
           stiffness: 400,
           damping: 10,
         },
@@ -61,7 +66,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
         font='fonts/Figtree-VariableFont_wght.ttf'
         fontSize={0.5}
         position={[0, 0.9, 0.051]}
-        anchorY={"bottom"}
+        anchorY={'bottom'}
       >
         {name}
         <meshBasicMaterial color={color} toneMapped={false} />
@@ -76,7 +81,9 @@ const PlantStage: React.FC<PlantStageProps> = ({
       <RoundedBox
         name={name}
         args={[2, 3, 0.1]}
-        onDoubleClick={() => handleActiveChanged(active === name ? null : name)}
+        onDoubleClick={() =>
+          handleActiveChanged(activePortal === name ? null : name)
+        }
         onPointerEnter={() => setHovered(name)}
         onPointerLeave={() => setHovered(null)}
       >
@@ -87,7 +94,11 @@ const PlantStage: React.FC<PlantStageProps> = ({
           {children}
           <mesh>
             <sphereGeometry args={[6, 64, 64]} />
-            <meshStandardMaterial map={map} side={THREE.BackSide} transparent={false} />
+            <meshStandardMaterial
+              map={map}
+              side={THREE.BackSide}
+              transparent={false}
+            />
           </mesh>
         </MeshPortalMaterial>
       </RoundedBox>

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 export const CAMERA_BEFORE_DOLLY_POSITION = new THREE.Vector3(0, 0, 50);
 export const CAMERA_INITIAL_POSITION = new THREE.Vector3(0, 0, 16);

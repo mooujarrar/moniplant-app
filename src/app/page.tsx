@@ -1,23 +1,30 @@
-"use client"; // This is a client component 👈🏽
+'use client'; // This is a client component 👈🏽
 
-import { Canvas } from "@react-three/fiber";
-import { Experience } from "./components/Experience";
-import { Suspense } from "react";
-import Loader from "./components/Loader";
-import { AdaptiveDpr, AdaptiveEvents, Html, PerspectiveCamera, Preload } from "@react-three/drei";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
-import OverlayButtons from "./components/UI";
-import { useActivePortalStore } from "./components/state-management/activePortal";
+import { Canvas } from '@react-three/fiber';
+import { Experience } from './components/Experience';
+import { Suspense } from 'react';
+import Loader from './components/Loader';
+import {
+  AdaptiveDpr,
+  AdaptiveEvents,
+  Preload,
+} from '@react-three/drei';
+import OverlayButtons from './components/UI';
 
 export default function Home() {
-  const { activePortal } = useActivePortalStore();
 
   return (
     <>
-      <Canvas shadows camera={{ position: [0, 0, 16], fov: 45 }} >
+      <OverlayButtons />
+      <Canvas
+        shadows
+        flat
+        camera={{ position: [0, 0, 16], fov: 45, isPerspectiveCamera: true }}
+      >
         {/* Performance enhancers */}
         <AdaptiveDpr pixelated />
         <AdaptiveEvents />
+        <Preload all />
 
         {/* Performance enhancers */}
         <Suspense fallback={<Loader />}>
