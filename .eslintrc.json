@@ -16,6 +16,7 @@
     {
       "files": ["**/*.jsx"],
       "rules": {
+        "semi": "off",
         "quotes": "off"
       }
     }
