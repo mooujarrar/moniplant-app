@@ -4,7 +4,6 @@ import { Plant1 } from './Models/Plant1';
 import { Plant2 } from './Models/Plant2';
 import { Plant3 } from './Models/Plant3';
 import { Plant4 } from './Models/Plant4';
-import { Tablet } from './Models/Tablet';
 import { MONITOR_POSITION } from './Positions';
 import { useActivePortalStore } from './state-management/activePortal';
 
@@ -50,13 +49,6 @@ export const Monitoring = () => {
           rotation-y={Math.PI / 6}
           hovered={hovered === EPlants.PLANT1}
         />
-        <Tablet
-          visible={activePortal === EPlants.PLANT1}
-          position-x={-4.33}
-          position-z={1.25}
-          rotation-x={Math.PI / 2}
-          scale={0.04}
-        />
       </group>
       <group
         onPointerEnter={() => {
@@ -78,13 +70,6 @@ export const Monitoring = () => {
           rotation-y={Math.PI / 12}
           position-x={-1.5}
           hovered={hovered === EPlants.PLANT2}
-        />
-        <Tablet
-          visible={activePortal === EPlants.PLANT2}
-          position-x={-0.3}
-          position-z={-0.54}
-          rotation-x={Math.PI / 2}
-          scale={0.04}
         />
       </group>
       <group
@@ -108,13 +93,6 @@ export const Monitoring = () => {
           position-x={1.5}
           hovered={hovered === EPlants.PLANT3}
         />
-        <Tablet
-          visible={activePortal === EPlants.PLANT3}
-          position-x={-0.04}
-          position-z={-0.51}
-          rotation-x={Math.PI / 2}
-          scale={0.04}
-        />
       </group>
       <group
         onPointerEnter={() => {
@@ -137,13 +115,6 @@ export const Monitoring = () => {
           position-z={1.5}
           position-y={-1.66}
           hovered={hovered === EPlants.PLANT4}
-        />
-        <Tablet
-          visible={activePortal === EPlants.PLANT4}
-          position-x={0}
-          position-z={1.19}
-          rotation-x={Math.PI / 2}
-          scale={0.04}
         />
       </group>
     </group>
