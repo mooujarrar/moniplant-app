@@ -5,7 +5,7 @@ Command: npx gltfjsx@6.2.3 public/models/Tablet.glb -o src/components/Tablet.jsx
 
 import { Html, useGLTF } from "@react-three/drei";
 import React from "react";
-import InfoCard from "../InfoCard";
+import InfoCard from "../UI/InfoCard";
 
 export function Tablet(props) {
   const { nodes, materials } = useGLTF("/models/Tablet.glb");

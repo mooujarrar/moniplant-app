@@ -9,7 +9,7 @@ import {
   AdaptiveEvents,
   Preload,
 } from '@react-three/drei';
-import OverlayButtons from './components/UI';
+import OverlayButtons from './components/UI/UI';
 
 export default function Home() {
 
