@@ -11,11 +11,11 @@ import Humidity from '../UI/Humidity';
 import Moisture from '../UI/Moisture';
 import MoistureGraph from '../UI/MoistureGraph';
 
-function Content() {
+function Content(props) {
   return (
-    <group rotation-z={Math.PI / 24} scale={5} position-x={-0.1}>
+    <group  rotation-z={Math.PI / 24} position-x={-75}>
       <Html
-        position={[6, 4, -3]}
+        position={[10, 0, 0]}
         rotation-x={-Math.PI/2}
         style={{ userSelect: "none" }}
         as="div"
@@ -24,12 +24,12 @@ function Content() {
         receiveShadow
         center
         transform
-        distanceFactor={10}
+        distanceFactor={50}
       >
         <Temperature />
       </Html>
       <Html
-        position={[-6, 0, -3]}
+        position={[0, 0, 0]}
         rotation-x={-Math.PI/2}
         style={{ userSelect: "none" }}
         as="div"
@@ -38,12 +38,12 @@ function Content() {
         receiveShadow
         center
         transform
-        distanceFactor={10}
+        distanceFactor={50}
       >
         <Humidity />
       </Html>
       <Html
-        position={[-10, 2, 3]}
+        position={[5, 0, 50]}
         rotation-x={-Math.PI/2}
         style={{ userSelect: "none" }}
         as="div"
@@ -52,12 +52,12 @@ function Content() {
         receiveShadow
         center
         transform
-        distanceFactor={10}
+        distanceFactor={50}
       >
         <Moisture />
       </Html>
       <Html
-        position={[0, 0, 20]}
+        position={[0, 0, 100]}
         rotation-x={-Math.PI/2}
         style={{ userSelect: "none" }}
         as="div"
@@ -66,7 +66,7 @@ function Content() {
         receiveShadow
         center
         transform
-        distanceFactor={15}
+        distanceFactor={50}
       >
         <MoistureGraph />
       </Html>

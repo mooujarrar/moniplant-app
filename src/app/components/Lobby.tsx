@@ -1,6 +1,7 @@
 import { Float, Text3D, MeshReflectorMaterial } from '@react-three/drei';
 import { Shelf } from './Models/Shelf';
 import { Color } from 'three';
+import { LOBBY_FITTING_BOX_NAME } from './Positions';
 
 const bloomColor = new Color('#00ff50');
 bloomColor.multiplyScalar(1.05);
@@ -8,6 +9,10 @@ bloomColor.multiplyScalar(1.05);
 export const Lobby = () => {
   return (
     <>
+      <mesh name={LOBBY_FITTING_BOX_NAME} visible={false}>
+       <meshBasicMaterial opacity={0.5} transparent color={'#ffff00'} />
+       <boxGeometry args={[20, 15, 1]}/>
+      </mesh>
       <Float floatIntensity={0.5} rotationIntensity={0.5}>
         <group position-y={1.5}>
           <group position={[4, 0, 0]}>
@@ -45,7 +50,7 @@ export const Lobby = () => {
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           blur={[100, 100]}
-          resolution={2048}
+          resolution={1024}
           mixBlur={1}
           mixStrength={10}
           roughness={1}

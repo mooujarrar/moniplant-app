@@ -1,11 +1,12 @@
 import { useCursor } from '@react-three/drei';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Plant1 } from './Models/Plant1';
 import { Plant2 } from './Models/Plant2';
 import { Plant3 } from './Models/Plant3';
 import { Plant4 } from './Models/Plant4';
-import { MONITOR_POSITION } from './Positions';
+import { MONITOR_FITTING_BOX_NAME, MONITOR_POSITION } from './Positions';
 import { useActivePortalStore } from './state-management/activePortal';
+import { Plant5 } from './Models/Plant5';
 
 export enum EPlants {
   PLANT1 = 'Plant 1',
@@ -27,6 +28,10 @@ export const Monitoring = () => {
 
   return (
     <group position={MONITOR_POSITION} rotation-y={-Math.PI / 2}>
+      <mesh name={MONITOR_FITTING_BOX_NAME} position-y={-1} visible={false}>
+       <meshBasicMaterial opacity={0.5} transparent color={'#00ff00'} />
+       <boxGeometry args={[12, 6, 4]}/>
+      </mesh>
       <group
         onPointerEnter={() => {
           setHovered(EPlants.PLANT1);
@@ -47,7 +52,6 @@ export const Monitoring = () => {
           position-z={1.5}
           position-y={-1.875}
           rotation-y={Math.PI / 6}
-          hovered={hovered === EPlants.PLANT1}
         />
       </group>
       <group
@@ -69,7 +73,6 @@ export const Monitoring = () => {
           position-y={-1.69}
           rotation-y={Math.PI / 12}
           position-x={-1.5}
-          hovered={hovered === EPlants.PLANT2}
         />
       </group>
       <group
@@ -91,7 +94,6 @@ export const Monitoring = () => {
           position-y={-1.69}
           rotation-y={-Math.PI / 12}
           position-x={1.5}
-          hovered={hovered === EPlants.PLANT3}
         />
       </group>
       <group
@@ -114,7 +116,6 @@ export const Monitoring = () => {
           position-x={4}
           position-z={1.5}
           position-y={-1.66}
-          hovered={hovered === EPlants.PLANT4}
         />
       </group>
     </group>

@@ -4,13 +4,85 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant5.jsx -r public public/mo
 */
 
 import React, { useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { Html, useGLTF } from '@react-three/drei'
+import Temperature from '../UI/Temperature';
+import Humidity from '../UI/Humidity';
+import Moisture from '../UI/Moisture';
+import MoistureGraph from '../UI/MoistureGraph';
+import { useActivePortalStore } from '../state-management/activePortal';
+
+function Content() {
+  return (
+    <group rotation-z={Math.PI / 24} scale={19.867} position-x={0.1} position-y={9.944}>
+      <Html
+      scale={19.867}
+        position={[6, 4, -3]}
+        rotation-x={-Math.PI/2}
+        style={{ userSelect: "none" }}
+        as="div"
+        className="wrapper"
+        castShadow
+        receiveShadow
+        center
+        transform
+        distanceFactor={1}
+      >
+        <Temperature />
+      </Html>
+      <Html
+        position={[-6, 0, -3]}
+        rotation-x={-Math.PI/2}
+        style={{ userSelect: "none" }}
+        as="div"
+        className="wrapper"
+        castShadow
+        receiveShadow
+        center
+        transform
+        distanceFactor={1}
+      >
+        <Humidity />
+      </Html>
+      <Html
+        position={[-1, 2, 3]}
+        rotation-x={-Math.PI/2}
+        style={{ userSelect: "none" }}
+        as="div"
+        className="wrapper"
+        castShadow
+        receiveShadow
+        center
+        transform
+        distanceFactor={1}
+      >
+        <Moisture />
+      </Html>
+      <Html
+        position={[0, 0, 20]}
+        rotation-x={-Math.PI/2}
+        style={{ userSelect: "none" }}
+        as="div"
+        className="wrapper"
+        castShadow
+        receiveShadow
+        center
+        transform
+        distanceFactor={1}
+      >
+        <MoistureGraph />
+      </Html>
+    </group>
+  );
+}
 
 export function Plant5(props) {
-  const { nodes, materials } = useGLTF('/models/plant5.glb')
+  const { nodes, materials } = useGLTF('/models/plant5.glb');
+  const { activePortal } = useActivePortalStore();
+
   return (
     <group {...props} dispose={null}>
       <group position={[0, -9.944, 0]} rotation={[Math.PI / 2, 0, 0]} scale={19.867}>
+        { activePortal === props.name && <Content />}
         <mesh geometry={nodes.awa_outdoor003.geometry} material={materials['Material.010']} />
         <mesh geometry={nodes.awa_outdoor003_1.geometry} material={materials['Material.008']} />
         <mesh geometry={nodes.awa_outdoor003_2.geometry} material={materials['1Newplan_2Petal1']} />

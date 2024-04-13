@@ -1,8 +1,4 @@
-import {
-  CameraControls,
-  Environment,
-  useFont,
-} from '@react-three/drei';
+import { CameraControls, Environment, useFont } from '@react-three/drei';
 import { Monitoring } from './Monitoring';
 import { EPage, useActivePageStore } from './state-management/activePage';
 import { useActivePortalStore } from './state-management/activePortal';
@@ -14,6 +10,8 @@ import {
   CAMERA_INITIAL_POSITION,
   CAMERA_INSIDE_PORTAL_POSITION,
   HOME_POSITION,
+  LOBBY_FITTING_BOX_NAME,
+  MONITOR_FITTING_BOX_NAME,
   MONITOR_POSITION,
 } from './Positions';
 
@@ -23,6 +21,44 @@ export const Experience = () => {
   const controlsRef = useRef<CameraControls>(null);
 
   const scene = useThree((state) => state.scene);
+
+  const fitCamera = async () => {
+    // We dont use the states above because this is an async arrow function that doesn't get the changes out of its scope
+    const activePage = useActivePageStore.getState().activePage;
+    const activePortal = useActivePortalStore.getState().activePortal;
+
+    const cameraControl = controlsRef.current;
+    if (cameraControl) {
+      let fittingBox = undefined;
+      if (activePage === EPage.HOME) {
+        fittingBox = scene.getObjectByName(LOBBY_FITTING_BOX_NAME);
+        if (fittingBox) {
+          cameraControl.fitToBox(fittingBox, true);
+        }
+      } else if (activePage === EPage.MONITOR && activePortal === null) {
+        fittingBox = scene.getObjectByName(MONITOR_FITTING_BOX_NAME);
+        if (fittingBox) {
+          cameraControl.fitToBox(fittingBox, true);
+        }
+      }
+    }
+  };
+
+  const debounce = (
+    func: any,
+    time = 100
+  ) => {
+    let timer: string | number | NodeJS.Timeout | undefined;
+    return function (event: any) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(func, time, event);
+    };
+  };
+  
+  useEffect(() => {
+    window.addEventListener('resize', debounce(fitCamera, 150), false);
+    return () => window.removeEventListener('resize', debounce(fitCamera, 150));
+  }, []);
 
   useEffect(() => {
     const cameraControl = controlsRef.current;
@@ -50,6 +86,7 @@ export const Experience = () => {
             MONITOR_POSITION.z,
             true
           );
+          fitCamera();
         }
       } else if (activePage === EPage.HOME) {
         cameraControl.setLookAt(
@@ -61,6 +98,7 @@ export const Experience = () => {
           HOME_POSITION.z,
           true
         );
+        fitCamera();
       }
     }
   }, [activePage, activePortal, scene]);
