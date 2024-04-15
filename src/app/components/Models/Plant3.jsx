@@ -4,83 +4,17 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant3.jsx -r public public/mo
 */
 
 import React from 'react'
-import { Html, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import { useActivePortalStore } from '../state-management/activePortal';
-import Temperature from '../UI/Temperature';
-import Humidity from '../UI/Humidity';
-import Moisture from '../UI/Moisture';
-import MoistureGraph from '../UI/MoistureGraph';
-
-function Content(props) {
-  return (
-    <group  rotation-z={Math.PI / 24} position-x={-75}>
-      <Html
-        position={[10, 0, 0]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={50}
-      >
-        <Temperature />
-      </Html>
-      <Html
-        position={[0, 0, 0]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={50}
-      >
-        <Humidity />
-      </Html>
-      <Html
-        position={[5, 0, 50]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={50}
-      >
-        <Moisture />
-      </Html>
-      <Html
-        position={[0, 0, 100]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={50}
-      >
-        <MoistureGraph />
-      </Html>
-    </group>
-  );
-}
+import { PlantInfo } from './PlantInfo';
 
 export function Plant3(props) {
   const { nodes, materials } = useGLTF('/models/plant3.glb')
   const { activePortal } = useActivePortalStore();
   return (
     <group {...props} dispose={null}>
-      <group rotation={[Math.PI / 2, 0, 0]}>
-        { activePortal === props.name && <Content />}
+      { activePortal === props.name && <PlantInfo />}
+      <group position-z={-1} position-y={-1.19} rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
         <mesh geometry={nodes.Mesh002.geometry} material={materials['eb_house_plant_01.002']} />
         <mesh geometry={nodes.Mesh002_1.geometry} material={materials['Material.004']} />
       </group>

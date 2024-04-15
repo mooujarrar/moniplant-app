@@ -4,83 +4,17 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant4.jsx -r public public/mo
 */
 
 import React from 'react'
-import { Html, useGLTF } from '@react-three/drei'
+import { useGLTF } from '@react-three/drei'
 import { useActivePortalStore } from '../state-management/activePortal';
-import Temperature from '../UI/Temperature';
-import Humidity from '../UI/Humidity';
-import Moisture from '../UI/Moisture';
-import MoistureGraph from '../UI/MoistureGraph';
-
-function Content() {
-  return (
-    <group rotation-z={Math.PI / 12} position-x={-0.2}>
-      <Html
-        position={[-0.4, 0.4, -0.5]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={0.4}
-      >
-        <Temperature />
-      </Html>
-      <Html
-        position={[0.6, 0.2, -0.6]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={0.4}
-      >
-        <Humidity />
-      </Html>
-      <Html
-        position={[0.6, 0.4, -0.18]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={0.4}
-      >
-        <Moisture />
-      </Html>
-      <Html
-        position={[-0.4, 0.4, -0.1]}
-        rotation-x={-Math.PI/2}
-        style={{ userSelect: "none" }}
-        as="div"
-        className="wrapper"
-        castShadow
-        receiveShadow
-        center
-        transform
-        distanceFactor={0.4}
-      >
-        <MoistureGraph />
-      </Html>
-    </group>
-  );
-}
+import { PlantInfo } from './PlantInfo';
 
 export function Plant4(props) {
   const { nodes, materials } = useGLTF('/models/plant4.glb')
   const { activePortal } = useActivePortalStore();
   return (
     <group {...props} dispose={null}>
-      <group position={[0, -1.353, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[2.971, 3.372, 2.65]}>
-        { activePortal === props.name && <Content />}
+      { activePortal === props.name && <PlantInfo />}
+      <group position-y={-2.51} rotation={[Math.PI / 2, 0, 0]} scale={[2.971, 3.372, 2.65]}>
         <mesh geometry={nodes.awa_outdoor002.geometry} material={materials['Material.007']} />
         <mesh geometry={nodes.awa_outdoor002_1.geometry} material={materials['Blatt.002']} />
         <mesh geometry={nodes.awa_outdoor002_2.geometry} material={materials['Material.005']} />
