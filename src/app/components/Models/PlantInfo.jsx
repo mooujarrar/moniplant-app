@@ -3,7 +3,7 @@ import InfoCard from '../UI/InfoCard';
 
 export function PlantInfo({ ...props }) {
   return (
-    <group {...props} position-x={-2}>
+    <group {...props}>
       {/*<Line
         points={[
           [-0.4, -0.1, -0.8],

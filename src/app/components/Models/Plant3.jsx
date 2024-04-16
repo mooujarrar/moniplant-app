@@ -6,14 +6,14 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant3.jsx -r public public/mo
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useActivePortalStore } from '../state-management/activePortal';
-import { PlantInfo } from './PlantInfo';
+import { Tablet } from './Tablet';
 
 export function Plant3(props) {
   const { nodes, materials } = useGLTF('/models/plant3.glb')
   const { activePortal } = useActivePortalStore();
   return (
     <group {...props} dispose={null}>
-      { activePortal === props.name && <PlantInfo />}
+      { activePortal === props.name && <Tablet props/>}
       <group position-z={-1} position-y={-1.19} rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
         <mesh geometry={nodes.Mesh002.geometry} material={materials['eb_house_plant_01.002']} />
         <mesh geometry={nodes.Mesh002_1.geometry} material={materials['Material.004']} />
