@@ -7,6 +7,8 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useActivePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
+import { motion } from "framer-motion-3d"
+import { SPRING, VISIBILITY_VARIANTS } from '../AnimationConstants';
 
 export function Plant4(props) {
   const { nodes, materials } = useGLTF('/models/plant4.glb')
@@ -14,10 +16,10 @@ export function Plant4(props) {
   return (
     <group {...props} dispose={null}>
       { activePortal === props.name && <Tablet props/>}
-      <group position-y={-2.51} rotation={[Math.PI / 2, 0, 0]} scale={[2.971, 3.372, 2.65]}>
-        <mesh geometry={nodes.awa_outdoor002.geometry} material={materials['Material.007']} />
-        <mesh geometry={nodes.awa_outdoor002_1.geometry} material={materials['Blatt.002']} />
-        <mesh geometry={nodes.awa_outdoor002_2.geometry} material={materials['Material.005']} />
+      <group position-y={-3} rotation={[Math.PI / 2, 0, 0]} scale={[2.971, 3.372, 2.65]}>
+        <motion.mesh geometry={nodes.awa_outdoor002.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.007']} />
+        <motion.mesh geometry={nodes.awa_outdoor002_1.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Blatt.002']} />
+        <motion.mesh geometry={nodes.awa_outdoor002_2.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.005']} />
       </group>
     </group>
   )

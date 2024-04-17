@@ -30,9 +30,10 @@ export const Monitoring = () => {
     <group position={MONITOR_POSITION} rotation-y={-Math.PI / 2}>
       <mesh name={MONITOR_FITTING_BOX_NAME} position-y={-1} visible={false}>
         <meshBasicMaterial opacity={0.5} transparent color={'#00ff00'} />
-        <boxGeometry args={[10, 6, 4]} />
+        <boxGeometry args={[10, 6, 1]} />
       </mesh>
       <Flex
+        centerAnchor
         plane='xy'
         width='auto'
         height='auto'

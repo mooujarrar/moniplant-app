@@ -7,6 +7,8 @@ import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useActivePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
+import { motion } from "framer-motion-3d"
+import { SPRING, VISIBILITY_VARIANTS } from '../AnimationConstants';
 
 export function Plant3(props) {
   const { nodes, materials } = useGLTF('/models/plant3.glb')
@@ -14,9 +16,9 @@ export function Plant3(props) {
   return (
     <group {...props} dispose={null}>
       { activePortal === props.name && <Tablet props/>}
-      <group position-z={-1} position-y={-1.19} rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
-        <mesh geometry={nodes.Mesh002.geometry} material={materials['eb_house_plant_01.002']} />
-        <mesh geometry={nodes.Mesh002_1.geometry} material={materials['Material.004']} />
+      <group position-z={-1} position-y={-1.67} rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
+        <motion.mesh geometry={nodes.Mesh002.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['eb_house_plant_01.002']} />
+        <motion.mesh geometry={nodes.Mesh002_1.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.004']} />
       </group>
     </group>
   )
