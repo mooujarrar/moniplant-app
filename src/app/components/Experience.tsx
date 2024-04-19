@@ -1,7 +1,7 @@
 import { CameraControls, Environment, useFont } from '@react-three/drei';
 import { Monitoring } from './Monitoring';
 import { EPage, useActivePageStore } from './state-management/activePage';
-import { useActivePortalStore } from './state-management/activePortal';
+import { usePortalStore } from './state-management/activePortal';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
@@ -17,7 +17,7 @@ import {
 
 export const Experience = () => {
   const { activePage } = useActivePageStore();
-  const { activePortal } = useActivePortalStore();
+  const { activePortal } = usePortalStore();
   const controlsRef = useRef<CameraControls>(null);
 
   const scene = useThree((state) => state.scene);
@@ -25,7 +25,7 @@ export const Experience = () => {
   const fitCamera = async () => {
     // We dont use the states above because this is an async arrow function that doesn't get the changes out of its scope
     const activePage = useActivePageStore.getState().activePage;
-    const activePortal = useActivePortalStore.getState().activePortal;
+    const activePortal = usePortalStore.getState().activePortal;
 
     const cameraControl = controlsRef.current;
     if (cameraControl) {

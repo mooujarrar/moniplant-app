@@ -5,16 +5,18 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant2.jsx -r public public/mo
 
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
-import { useActivePortalStore } from '../state-management/activePortal';
+import { usePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
 import { motion } from "framer-motion-3d"
 import { SPRING, VISIBILITY_VARIANTS } from '../AnimationConstants';
+import PlantCard from '../UI/PlantCard';
 
 export function Plant2(props) {
   const { nodes, materials } = useGLTF('/models/plant2.glb')
-  const { activePortal } = useActivePortalStore();
+  const { activePortal, hoveredPortal } = usePortalStore();
   return (
     <group {...props} dispose={null}>
+      <PlantCard opacity={!activePortal && hoveredPortal === props.name ? 'opacity-1' : 'opacity-0'} plantName={props.name} />
       {activePortal === props.name && <Tablet props/>}
       <group position-z={-1} position-y={-3} rotation={[Math.PI / 2, 0, 0]} scale={2.6}>
         <motion.mesh geometry={nodes.awa_outdoor.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.002']} />

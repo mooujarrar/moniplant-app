@@ -5,13 +5,13 @@ Command: npx gltfjsx@6.2.13 -o src/app/components/Plant5.jsx -r public public/mo
 
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
-import { useActivePortalStore } from '../state-management/activePortal';
+import { usePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
 
 
 export function Plant5(props) {
   const { nodes, materials } = useGLTF('/models/plant5.glb');
-  const { activePortal } = useActivePortalStore();
+  const { activePortal } = usePortalStore();
 
   return (
     <group {...props} dispose={null}>
