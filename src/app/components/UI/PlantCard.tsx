@@ -1,17 +1,19 @@
 import { Html } from '@react-three/drei';
 import React from 'react';
+import { motion } from 'framer-motion-3d';
+import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
 
 interface PlantCardProps {
   plantName: string;
-  opacity: string;
+  visibility: string;
 }
 
-const PlantCard: React.FC<PlantCardProps> = ({ plantName, opacity }) => {
+const PlantCard: React.FC<PlantCardProps> = ({ plantName, visibility }) => {
   return (
-    <group position-y={0.4}>
+    <motion.group variants={PLANT_VISIBILITY_VARIANTS} initial='hidden' exit='hidden' transition={PLANT_SPRING} animate={visibility} position-y={0.4}>
       <Html
         style={{ userSelect: 'none' }}
-        className={`card ${opacity}`}
+        className='card'
         as='div'
         castShadow
         receiveShadow
@@ -26,7 +28,7 @@ const PlantCard: React.FC<PlantCardProps> = ({ plantName, opacity }) => {
           </div>
         </div>
       </Html>
-    </group>
+    </motion.group>
   );
 };
 

@@ -8,7 +8,7 @@ import { useGLTF } from '@react-three/drei'
 import { usePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
 import { motion } from "framer-motion-3d"
-import { SPRING, VISIBILITY_VARIANTS } from '../AnimationConstants';
+import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
 import PlantCard from '../UI/PlantCard';
 
 export function Plant4(props) {
@@ -16,12 +16,12 @@ export function Plant4(props) {
   const { activePortal, hoveredPortal } = usePortalStore();
   return (
     <group {...props} dispose={null}>
-      <PlantCard opacity={!activePortal && hoveredPortal === props.name ? 'opacity-1' : 'opacity-0'} plantName={props.name} />
+      <PlantCard visibility={!activePortal && hoveredPortal === props.name ? 'visible' : 'hidden'} plantName={props.name} />
       { activePortal === props.name && <Tablet props/>}
       <group position-y={-3} rotation={[Math.PI / 2, 0, 0]} scale={[2.971, 3.372, 2.65]}>
-        <motion.mesh geometry={nodes.awa_outdoor002.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.007']} />
-        <motion.mesh geometry={nodes.awa_outdoor002_1.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Blatt.002']} />
-        <motion.mesh geometry={nodes.awa_outdoor002_2.geometry} variants={VISIBILITY_VARIANTS} initial='visible' transition={SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.005']} />
+        <motion.mesh geometry={nodes.awa_outdoor002.geometry} variants={PLANT_VISIBILITY_VARIANTS} initial='visible' transition={PLANT_SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.007']} />
+        <motion.mesh geometry={nodes.awa_outdoor002_1.geometry} variants={PLANT_VISIBILITY_VARIANTS} initial='visible' transition={PLANT_SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Blatt.002']} />
+        <motion.mesh geometry={nodes.awa_outdoor002_2.geometry} variants={PLANT_VISIBILITY_VARIANTS} initial='visible' transition={PLANT_SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.005']} />
       </group>
     </group>
   )

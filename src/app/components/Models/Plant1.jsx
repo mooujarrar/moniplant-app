@@ -8,7 +8,7 @@ import { useGLTF } from '@react-three/drei'
 import { usePortalStore } from '../state-management/activePortal'
 import { Tablet } from './Tablet';
 import { motion } from "framer-motion-3d"
-import { SPRING, VISIBILITY_VARIANTS } from '../AnimationConstants';
+import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
 import PlantCard from '../UI/PlantCard';
 
 export function Plant1(props) {
@@ -16,11 +16,11 @@ export function Plant1(props) {
   const { activePortal, hoveredPortal } = usePortalStore();
   return (
     <group {...props} dispose={null}>
-      <PlantCard opacity={!activePortal && hoveredPortal === props.name ? 'opacity-1' : 'opacity-0'} plantName={props.name} />
+      <PlantCard visibility={!activePortal && hoveredPortal === props.name ? 'visible' : 'hidden'} plantName={props.name} />
       {activePortal === props.name && <Tablet props/>}
       <group position-y={-3} rotation={[Math.PI / 2, 0, 0]} scale={2.5}>
-        <motion.mesh geometry={nodes.awa_outdoor.geometry} variants={VISIBILITY_VARIANTS} transition={SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.002']}  />
-        <motion.mesh geometry={nodes.awa_outdoor_1.geometry} variants={VISIBILITY_VARIANTS} transition={SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['10461_Yucca_Plant_v1']} />
+        <motion.mesh geometry={nodes.awa_outdoor.geometry} variants={PLANT_VISIBILITY_VARIANTS} transition={PLANT_SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.002']}  />
+        <motion.mesh geometry={nodes.awa_outdoor_1.geometry} variants={PLANT_VISIBILITY_VARIANTS} transition={PLANT_SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['10461_Yucca_Plant_v1']} />
       </group>
     </group>
   )
