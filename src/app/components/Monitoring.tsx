@@ -16,6 +16,22 @@ export enum EPlants {
   PLANT5 = 'Plant 5',
 }
 
+function calculateRotations(totalPlants: number) {
+  const rotations = [];
+  
+  const halfPlants = Math.floor(totalPlants / 2);
+  
+  for (let i = 0; i < halfPlants; i++) {
+    rotations.push(Math.PI / (4 * (halfPlants + i)));
+  }
+  
+  if (totalPlants % 2 === 1) {
+    rotations.push(0); // Center plant
+  }
+  
+  return [...rotations, ...rotations.map(angle => -angle).reverse()];
+}
+
 export const Monitoring = () => {
   const { activePortal, hoveredPortal, setActivePortal, setHoveredPortal } =
     usePortalStore();
@@ -27,6 +43,16 @@ export const Monitoring = () => {
   const handleHoveredChanged = (_hoveredPortal: string | null) => {
     setHoveredPortal(_hoveredPortal);
   };
+
+  const plants = [
+    { name: EPlants.PLANT1, component: <Plant1 />},
+    { name: EPlants.PLANT2, component: <Plant2 />},
+    { name: EPlants.PLANT3, component: <Plant3 />},
+    { name: EPlants.PLANT4, component: <Plant4 />},
+
+  ];
+  const rotations = calculateRotations(plants.length);
+
 
   useCursor(hoveredPortal !== null);
 
@@ -45,74 +71,30 @@ export const Monitoring = () => {
         justifyContent='center'
         alignItems='center'
       >
-        <Box
-          onPointerEnter={() => {
-            handleHoveredChanged(EPlants.PLANT1);
-          }}
-          onPointerLeave={() => {
-            handleHoveredChanged(null);
-          }}
-          onDoubleClick={() => {
-            handleActiveChanged(
-              activePortal === EPlants.PLANT1 ? null : EPlants.PLANT1
-            );
-          }}
-          centerAnchor
-          padding={1}
-        >
-          <Plant1 name={EPlants.PLANT1} rotation-y={Math.PI / 6} />
-        </Box>
-        <Box
-          onPointerEnter={() => {
-            handleHoveredChanged(EPlants.PLANT2);
-          }}
-          onPointerLeave={() => {
-            handleHoveredChanged(null);
-          }}
-          onDoubleClick={() => {
-            handleActiveChanged(
-              activePortal === EPlants.PLANT2 ? null : EPlants.PLANT2
-            );
-          }}
-          centerAnchor
-          padding={1}
-        >
-          <Plant2 name={EPlants.PLANT2} rotation-y={Math.PI / 12} />
-        </Box>
-        <Box
-          onPointerEnter={() => {
-            handleHoveredChanged(EPlants.PLANT3);
-          }}
-          onPointerLeave={() => {
-            handleHoveredChanged(null);
-          }}
-          onDoubleClick={() => {
-            handleActiveChanged(
-              activePortal === EPlants.PLANT3 ? null : EPlants.PLANT3
-            );
-          }}
-          centerAnchor
-          padding={1}
-        >
-          <Plant3 name={EPlants.PLANT3} rotation-y={-Math.PI / 12} />
-        </Box>
-        <Box
-          onPointerEnter={() => {
-            handleHoveredChanged(EPlants.PLANT4);
-          }}
-          onPointerLeave={() => {
-            handleHoveredChanged(null);
-          }}
-          onDoubleClick={() => {
-            handleActiveChanged(
-              activePortal === EPlants.PLANT4 ? null : EPlants.PLANT4
-            );
-          }}
-          centerAnchor
-          padding={1}
-        >
-          <Plant4 rotation-y={-Math.PI / 6} name={EPlants.PLANT4} />
-        </Box>
+        {plants.map((plant, index) => {
+          const rotationY = rotations[index] || 0; // Use the specified rotation or default to 0
+          return (<Box
+            key={index}
+            onPointerEnter={() => {
+              handleHoveredChanged(plant.name);
+            }}
+            onPointerLeave={() => {
+              handleHoveredChanged(null);
+            }}
+            onDoubleClick={() => {
+              handleActiveChanged(
+                activePortal === plant.name ? null : plant.name
+              );
+            }}
+            centerAnchor
+            padding={1}
+          >
+            {React.cloneElement(plant.component, {
+              name: plant.name,
+              'rotation-y': rotationY,
+            })}
+          </Box>);
+        })}
       </Flex>
     </group>
   );
