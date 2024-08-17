@@ -1,7 +1,7 @@
 import { CameraControls, Environment, useFont } from '@react-three/drei';
-import { Monitoring } from './Monitoring';
+import { EPlants, Monitoring } from './Monitoring';
 import { EPage, useActivePageStore } from './state-management/activePage';
-import { useActivePortalStore } from './state-management/activePortal';
+import { usePortalStore } from './state-management/activePortal';
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
@@ -13,11 +13,16 @@ import {
   LOBBY_FITTING_BOX_NAME,
   MONITOR_FITTING_BOX_NAME,
   MONITOR_POSITION,
+  PLANT_1_FITTING_BOX_NAME,
+  PLANT_2_FITTING_BOX_NAME,
+  PLANT_3_FITTING_BOX_NAME,
+  PLANT_4_FITTING_BOX_NAME,
+  PLANT_5_FITTING_BOX_NAME,
 } from './Positions';
 
 export const Experience = () => {
   const { activePage } = useActivePageStore();
-  const { activePortal } = useActivePortalStore();
+  const { activePortal } = usePortalStore();
   const controlsRef = useRef<CameraControls>(null);
 
   const scene = useThree((state) => state.scene);
@@ -25,7 +30,7 @@ export const Experience = () => {
   const fitCamera = async () => {
     // We dont use the states above because this is an async arrow function that doesn't get the changes out of its scope
     const activePage = useActivePageStore.getState().activePage;
-    const activePortal = useActivePortalStore.getState().activePortal;
+    const activePortal = usePortalStore.getState().activePortal;
 
     const cameraControl = controlsRef.current;
     if (cameraControl) {
@@ -54,6 +59,16 @@ export const Experience = () => {
       timer = setTimeout(func, time, event);
     };
   };
+
+  const getPlantFittingBoxName = (plant: EPlants) => {
+    switch(plant) {
+      case EPlants.PLANT1: return PLANT_1_FITTING_BOX_NAME;
+      case EPlants.PLANT2: return PLANT_2_FITTING_BOX_NAME;
+      case EPlants.PLANT3: return PLANT_3_FITTING_BOX_NAME;
+      case EPlants.PLANT4: return PLANT_4_FITTING_BOX_NAME;
+      case EPlants.PLANT5: return PLANT_5_FITTING_BOX_NAME;
+    }
+  };
   
   useEffect(() => {
     window.addEventListener('resize', debounce(fitCamera, 150), false);
@@ -65,6 +80,10 @@ export const Experience = () => {
     if (cameraControl) {
       if (activePage === EPage.MONITOR) {
         if (activePortal) {
+          /*const plantFittingBox = scene.getObjectByName(getPlantFittingBoxName(activePortal as EPlants));
+          if (plantFittingBox) {
+            cameraControl.fitToBox(plantFittingBox, true);
+          }*/
           const targetPosition = new THREE.Vector3();
           scene.getObjectByName(activePortal)?.getWorldPosition(targetPosition);
           cameraControl.setLookAt(

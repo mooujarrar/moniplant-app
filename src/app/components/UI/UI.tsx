@@ -1,11 +1,11 @@
 // OverlayButtons.tsx
 import React from 'react';
 import { EPage, useActivePageStore } from '../state-management/activePage';
-import { useActivePortalStore } from '../state-management/activePortal';
+import { usePortalStore } from '../state-management/activePortal';
 
 const OverlayButtons: React.FC = () => {
   const { activePage, setActivePage } = useActivePageStore();
-  const { activePortal } = useActivePortalStore();
+  const { activePortal } = usePortalStore();
 
   return (
     <>

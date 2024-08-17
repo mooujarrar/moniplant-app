@@ -10,7 +10,7 @@ import {
 import { easing } from 'maath';
 import { useRef } from 'react';
 import * as THREE from 'three';
-import { useActivePortalStore } from './state-management/activePortal';
+import { usePortalStore } from './state-management/activePortal';
 
 interface PlantStageProps {
   children: React.ReactNode;
@@ -32,7 +32,7 @@ const PlantStage: React.FC<PlantStageProps> = ({
 }) => {
   const map = useTexture(texture);
   const portalMaterial = useRef<any>();
-  const { activePortal, setActivePortal } = useActivePortalStore();
+  const { activePortal, setActivePortal } = usePortalStore();
 
   const handleActiveChanged = (activePortal: string | null) => {
     setActivePortal(activePortal);
