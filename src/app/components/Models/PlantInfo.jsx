@@ -1,5 +1,5 @@
 import { Html } from '@react-three/drei';
-import InfoCard from '../UI/InfoCard';
+import InfoCard from '../UI/monitor/InfoCard';
 
 export function PlantInfo({ ...props }) {
   return (

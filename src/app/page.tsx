@@ -9,13 +9,15 @@ import {
   AdaptiveEvents,
   Preload,
 } from '@react-three/drei';
-import OverlayButtons from './components/UI/UI';
+import OverlayButtons from './components/UI/Navigation';
+import Configurator from './components/UI/configuration/Configurator';
 
 export default function Home() {
 
   return (
     <>
       <OverlayButtons />
+      <Configurator />
       <Canvas
         shadows
         flat

@@ -9,7 +9,7 @@ import { usePortalStore } from '../state-management/activePortal';
 import { Tablet } from './Tablet';
 import { motion } from "framer-motion-3d"
 import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
-import PlantCard from '../UI/PlantCard';
+import PlantCard from '../UI/monitor/PlantCard';
 import { PLANT_4_FITTING_BOX_NAME } from '../Positions';
 
 export function Plant4(props) {

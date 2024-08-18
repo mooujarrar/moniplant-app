@@ -1,7 +1,7 @@
 import { Html } from '@react-three/drei';
 import React from 'react';
 import { motion } from 'framer-motion-3d';
-import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
+import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../../AnimationConstants';
 
 interface PlantCardProps {
   plantName: string;
