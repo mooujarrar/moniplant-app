@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    transpilePackages: ['three'],
-}
+const API_URL = process.env.API_URL;
 
-module.exports = nextConfig
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  transpilePackages: ['three'],
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${API_URL}/:path*`,
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;
