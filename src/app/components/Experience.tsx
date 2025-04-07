@@ -1,5 +1,5 @@
 import { CameraControls, Environment, useFont } from '@react-three/drei';
-import { EPlants, Monitoring } from './Monitoring';
+import { Monitoring } from './Monitoring';
 import { EPage, useActivePageStore } from './state-management/activePage';
 import { usePortalStore } from './state-management/activePortal';
 import { useEffect, useRef } from 'react';
@@ -13,11 +13,6 @@ import {
   LOBBY_FITTING_BOX_NAME,
   MONITOR_FITTING_BOX_NAME,
   MONITOR_POSITION,
-  PLANT_1_FITTING_BOX_NAME,
-  PLANT_2_FITTING_BOX_NAME,
-  PLANT_3_FITTING_BOX_NAME,
-  PLANT_4_FITTING_BOX_NAME,
-  PLANT_5_FITTING_BOX_NAME,
 } from './Positions';
 
 export const Experience = () => {
@@ -59,16 +54,6 @@ export const Experience = () => {
       timer = setTimeout(func, time, event);
     };
   };
-
-  const getPlantFittingBoxName = (plant: EPlants) => {
-    switch(plant) {
-      case EPlants.PLANT1: return PLANT_1_FITTING_BOX_NAME;
-      case EPlants.PLANT2: return PLANT_2_FITTING_BOX_NAME;
-      case EPlants.PLANT3: return PLANT_3_FITTING_BOX_NAME;
-      case EPlants.PLANT4: return PLANT_4_FITTING_BOX_NAME;
-      case EPlants.PLANT5: return PLANT_5_FITTING_BOX_NAME;
-    }
-  };
   
   useEffect(() => {
     window.addEventListener('resize', debounce(fitCamera, 150), false);
@@ -80,10 +65,6 @@ export const Experience = () => {
     if (cameraControl) {
       if (activePage === EPage.MONITOR) {
         if (activePortal) {
-          /*const plantFittingBox = scene.getObjectByName(getPlantFittingBoxName(activePortal as EPlants));
-          if (plantFittingBox) {
-            cameraControl.fitToBox(plantFittingBox, true);
-          }*/
           const targetPosition = new THREE.Vector3();
           scene.getObjectByName(activePortal)?.getWorldPosition(targetPosition);
           cameraControl.setLookAt(

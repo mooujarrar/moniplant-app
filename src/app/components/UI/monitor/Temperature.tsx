@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Temperature: React.FC = () => {
+const Temperature: React.FC<{value?: string}>= ({value}) => {
   return (
     <div className='flex flex-row justify-end'>
       <div className='mb-4 flex flex-col' style={{ width: '50%' }}>
@@ -19,7 +19,7 @@ const Temperature: React.FC = () => {
           >
             🌡️
           </span>
-          <p className='text-2xl'>24°C</p>
+          <p className='text-2xl'>{value}°C</p>
         </motion.div>
       </div>
     </div>

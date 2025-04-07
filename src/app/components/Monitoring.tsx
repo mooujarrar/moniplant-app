@@ -1,5 +1,5 @@
 import { useCursor } from '@react-three/drei';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Plant1 } from './Models/Plant1';
 import { Plant2 } from './Models/Plant2';
 import { Plant3 } from './Models/Plant3';
@@ -7,14 +7,8 @@ import { Plant4 } from './Models/Plant4';
 import { MONITOR_FITTING_BOX_NAME, MONITOR_POSITION } from './Positions';
 import { usePortalStore } from './state-management/activePortal';
 import { Box, Flex } from '@react-three/flex';
+import { ApiPlant, usePlants, usePlantTypes } from '../hooks/usePlants';
 
-export enum EPlants {
-  PLANT1 = 'Plant 1',
-  PLANT2 = 'Plant 2',
-  PLANT3 = 'Plant 3',
-  PLANT4 = 'Plant 4',
-  PLANT5 = 'Plant 5',
-}
 
 function calculateRotations(totalPlants: number) {
   const rotations = [];
@@ -44,13 +38,28 @@ export const Monitoring = () => {
     setHoveredPortal(_hoveredPortal);
   };
 
-  const plants = [
-    { name: EPlants.PLANT1, component: <Plant1 />},
-    { name: EPlants.PLANT2, component: <Plant2 />},
-    { name: EPlants.PLANT3, component: <Plant3 />},
-    { name: EPlants.PLANT4, component: <Plant4 />},
+  const { plants, loading: _loadingPlants, error: _errorPlants } = usePlants();
+  const { _types, loading: _loadingTypes, error: _errorTypes } = usePlantTypes();
 
-  ];
+
+  const plantsList = useMemo(() => {
+    return plants.map((plant: ApiPlant) => {
+      const plantComponentMap: Record<string, React.JSX.Element> = {
+        'Persea': <Plant3 />,
+        'Coffea': <Plant4 />,
+        'Citrus': <Plant1 />,
+        'Cucumis': <Plant2 />,
+      };
+
+      const Component = plantComponentMap[plant.plantTypeAlias] || Plant1;
+
+      return {
+        name: plant.name,
+        plantData: plant,
+        component: Component,
+      };
+    });
+  }, [plants]);
   const rotations = calculateRotations(plants.length);
 
 
@@ -71,7 +80,7 @@ export const Monitoring = () => {
         justifyContent='center'
         alignItems='center'
       >
-        {plants.map((plant, index) => {
+        {plantsList.map((plant, index) => {
           const rotationY = rotations[index] || 0; // Use the specified rotation or default to 0
           return (<Box
             key={index}
@@ -91,6 +100,7 @@ export const Monitoring = () => {
           >
             {React.cloneElement(plant.component, {
               name: plant.name,
+              data: plant.plantData,
               'rotation-y': rotationY,
             })}
           </Box>);

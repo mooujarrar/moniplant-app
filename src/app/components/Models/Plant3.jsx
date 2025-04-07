@@ -10,18 +10,13 @@ import { Tablet } from './Tablet';
 import { motion } from "framer-motion-3d"
 import { PLANT_SPRING, PLANT_VISIBILITY_VARIANTS } from '../AnimationConstants';
 import PlantCard from '../UI/monitor/PlantCard';
-import { PLANT_3_FITTING_BOX_NAME } from '../Positions';
 
 export function Plant3(props) {
   const { nodes, materials } = useGLTF('/models/plant3.glb')
   const { activePortal, hoveredPortal } = usePortalStore();
   return (
     <group {...props} dispose={null}>
-      {/*<mesh name={PLANT_3_FITTING_BOX_NAME} position={[-1, -1, 1]} visible={false}>
-        <meshBasicMaterial opacity={0.5} transparent color={'#00ff00'} />
-        <boxGeometry args={[4, 4, 1]} />
-      </mesh>*/}
-      <PlantCard visibility={!activePortal && hoveredPortal === props.name ? 'visible' : 'hidden'} plantName={props.name} />
+      <PlantCard visibility={!activePortal && hoveredPortal === props.name ? 'visible' : 'hidden'} plantData={props.data} />
       { activePortal === props.name && <Tablet props/>}
       <group position-z={-1} position-y={-1.67} rotation={[Math.PI / 2, 0, 0]} scale={0.02}>
         <motion.mesh geometry={nodes.Mesh002.geometry} variants={PLANT_VISIBILITY_VARIANTS} initial='visible' transition={PLANT_SPRING} animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['eb_house_plant_01.002']} />

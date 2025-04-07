@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Humidity: React.FC = () => {
+const Humidity: React.FC<{value?: string}> = ({value}) => {
   return (
     <div className='mb-4 flex flex-col'>
       <motion.div
@@ -19,7 +19,7 @@ const Humidity: React.FC = () => {
         >
           💦
         </span>
-        <p className='text-2xl'>60%</p>
+        <p className='text-2xl'>{value}%</p>
       </motion.div>
     </div>
   );
