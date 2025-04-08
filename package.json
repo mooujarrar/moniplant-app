@@ -26,6 +26,7 @@
     "framer-motion": "^10.16.4",
     "framer-motion-3d": "^10.16.4",
     "lamina": "^1.1.23",
+    "mqtt": "^5.10.4",
     "next": "13.5.2",
     "postcss": "8.4.30",
     "react": "18.2.0",

@@ -1,7 +1,9 @@
 import { Html } from '@react-three/drei';
 import InfoCard from '../UI/monitor/InfoCard';
 
-export function PlantInfo({ ...props }) {
+export function PlantInfo(props) {
+  // TODO props.plantData.id (plant id), I need to retrieve the sensors list from the plant data
+  // When having sensor ids, I need to subscribe to the mqtt topics with this ids and then show the data in plant info
   return (
     <group {...props}>
       {/*<Line

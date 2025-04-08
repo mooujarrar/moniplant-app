@@ -64,3 +64,41 @@ export const usePlantTypes = () => {
 
   return { types, loading, error };
 };
+
+// Define the Sensor type based on the response structure
+interface Sensor {
+  id: string;
+  label: string;
+  quantity: string;
+  unit: string;
+  plantId: string;
+}
+
+export const useRetrieveSensors = (plantId: string) => {
+  const [sensors, setSensors] = useState<Sensor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<null | string>(null);
+
+  useEffect(() => {
+    const fetchSensors = async () => {
+      try {
+        const response = await fetch(`/sensor/sensors/${plantId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch sensors');
+        }
+        const data = await response.json();
+        setSensors(data);
+      } catch (err: any) {
+        setError(err.message || 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (plantId) {
+      fetchSensors();
+    }
+  }, [plantId]);
+
+  return { sensors, loading, error };
+};

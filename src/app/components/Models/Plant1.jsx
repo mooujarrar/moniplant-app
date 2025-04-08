@@ -17,7 +17,7 @@ export function Plant1(props) {
   return (
     <group {...props} dispose={null}>
       <PlantCard visibility={!activePortal && hoveredPortal === props.name ? 'visible' : 'hidden'} plantData={props.data} />
-      {activePortal === props.name && <Tablet props/>}
+      {activePortal === props.name && <Tablet plantData={props.data} {...props}/>}
       <group position-y={-3} rotation={[Math.PI / 2, 0, 0]} scale={2.5}>
         <motion.mesh geometry={nodes.awa_outdoor.geometry} variants={PLANT_VISIBILITY_VARIANTS} transition={PLANT_SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['Material.002']}  />
         <motion.mesh geometry={nodes.awa_outdoor_1.geometry} variants={PLANT_VISIBILITY_VARIANTS} transition={PLANT_SPRING} initial='visible' animate={(activePortal === props.name || activePortal === null) ? 'visible' : 'hidden' } material={materials['10461_Yucca_Plant_v1']} />
