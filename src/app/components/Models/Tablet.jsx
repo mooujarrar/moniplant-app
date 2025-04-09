@@ -11,7 +11,7 @@ export function Tablet(props) {
   const { nodes, materials } = useGLTF("/models/Tablet.glb");
   return (
     <group {...props} position-x={-2} dispose={null}>
-      <PlantInfo position-x={-0.055} position-y={0.22} props />
+      <PlantInfo position-x={-0.055} position-y={0.22} {...props} />
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.0382}>
         <mesh
           geometry={nodes.ChamferBox003.geometry}

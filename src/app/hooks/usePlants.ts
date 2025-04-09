@@ -82,7 +82,7 @@ export const useRetrieveSensors = (plantId: string) => {
   useEffect(() => {
     const fetchSensors = async () => {
       try {
-        const response = await fetch(`/sensor/sensors/${plantId}`);
+        const response = await fetch(`/api/sensor/sensors/${plantId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch sensors');
         }

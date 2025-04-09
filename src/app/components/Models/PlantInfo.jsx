@@ -1,9 +1,40 @@
 import { Html } from '@react-three/drei';
 import InfoCard from '../UI/monitor/InfoCard';
+import { useEffect, useMemo } from 'react';
+import { useRetrieveSensors } from '@/app/hooks/usePlants';
+import useMqttClient from '@/app/hooks/useMqttClient';
+import { useMqttStore } from '../state-management/mqttStore';
+import { ESensorType } from '@/app/utils/ESensorType';
 
 export function PlantInfo(props) {
-  // TODO props.plantData.id (plant id), I need to retrieve the sensors list from the plant data
-  // When having sensor ids, I need to subscribe to the mqtt topics with this ids and then show the data in plant info
+  const { sensors } = useRetrieveSensors(props.data.id);
+
+  const sensorTypesMap = useMemo(() => {
+    const map = {};
+    sensors.forEach((sensor) => {
+      if (sensor.label === ESensorType.TEMPERATURE) {
+        map['Temperature'] = sensor.id;
+      } else if (sensor.label === ESensorType.HUMIDITY) {
+        map['Humidity'] = sensor.id;
+      } else if (sensor.label === ESensorType.SOIL_MOISTURE) {
+        map['Moisture'] = sensor.id;
+      }
+    });
+    return map;
+  }, [sensors]);
+
+  const topicList = useMemo(() => ["sensor.data.save"], []);
+
+  useMqttClient(topicList);
+  
+  const { messages } = useMqttStore();
+
+  useEffect(() => {
+    console.log('messages', messages);
+    messages.data
+  }
+  , [messages]);
+
   return (
     <group {...props}>
       {/*<Line
@@ -52,7 +83,11 @@ export function PlantInfo(props) {
         transform
         distanceFactor={1}
       >
-        <InfoCard />
+        {messages && sensorTypesMap && <InfoCard
+          moistureValue={messages[sensorTypesMap['Moisture']]}
+          temperatureValue={messages[sensorTypesMap['Temperature']]}
+          humidityValue={messages[sensorTypesMap['Humidity']]}
+        />}
       </Html>
     </group>
   );

@@ -2,8 +2,15 @@ import { useEffect, useMemo } from 'react';
 import mqtt from 'mqtt';
 import { useMqttStore } from '../components/state-management/mqttStore';
 
-const useMqttClient = (topics = []) => {
-  const brokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://localhost:1883';
+type SensorData = {
+  plant_id: string; // The ID of the plant
+  sensor_id: string; // The ID of the sensor
+  timestamp: number; // A Unix timestamp in seconds with a fractional part
+  value: string; // Sensor value as a string
+};
+
+const useMqttClient = (topics: string[] = []) => {
+  const brokerUrl = useMemo(() => process.env.MQTT_BROKER_URL || 'mqtt://127.0.0.1:8883', []); // Default broker URL
   const defaultOptions = useMemo(
     () => ({
       clientId: `mqtt_${Math.random().toString(16).slice(3)}`,
@@ -18,7 +25,7 @@ const useMqttClient = (topics = []) => {
 
   useEffect(() => {
     // Connect to the MQTT broker
-    const mqttClient: mqtt.MqttClient = mqtt.connect(brokerUrl, defaultOptions);
+    const mqttClient: mqtt.MqttClient = mqtt.connect(brokerUrl);
 
 
     mqttClient.on('connect', () => {
@@ -36,9 +43,10 @@ const useMqttClient = (topics = []) => {
       }
     });
 
-    mqttClient.on('message', (topic, message) => {
+    mqttClient.on('message', (topic, message: any) => {
       console.log(`Message received on topic ${topic}: ${message.toString()}`);
-      setMessage(topic, message.toString());
+      const sensorData = JSON.parse(message.toString()).data as SensorData;
+      setMessage(sensorData.sensor_id, sensorData.value);
     });
 
     mqttClient.on('error', (err) => {
