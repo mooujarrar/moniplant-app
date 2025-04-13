@@ -23,16 +23,21 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Build Docker image
-      - name: Build Docker Image
-        run: |
-          docker build -t nextjs-app .
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify the Node.js version
 
-      # Run the Docker container
-      - name: Run Docker Container
+      # Install dependencies
+      - name: Install Dependencies
         run: |
-          docker run -d -p 1234:1234 --name nextjs-container nextjs-app
+          npm install
 
+      # Run the development server on port 1234
+      - name: Run Development Server
+        run: |
+          PORT=1234 npm run dev &
       # Optionally, verify the app is running
       - name: Test Application is Running
         run: |
