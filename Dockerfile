@@ -16,5 +16,8 @@ COPY . .
 # Expose the desired port
 EXPOSE 3030
 
+# Set environment variables
+ENV NODE_OPTIONS="--max-old-space-size=2048"
+
 # Run the Next.js application in development mode
 CMD ["npm", "run", "dev"]
