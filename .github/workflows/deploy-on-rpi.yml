@@ -37,8 +37,8 @@ jobs:
       # Run the development server on port 1234
       - name: Run Development Server
         run: |
-          PORT=1234 npm run dev &
+          npm run dev
       # Optionally, verify the app is running
       - name: Test Application is Running
         run: |
-          curl -I http://localhost:1234
+          curl -I http://localhost:3030
