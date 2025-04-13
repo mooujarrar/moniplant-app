@@ -1,0 +1,43 @@
+name: Build and Serve Next.js App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+    inputs:
+      environment:
+        description: 'Environment to deploy (e.g., development or production)'
+        required: false
+        default: 'development'
+
+jobs:
+  build-and-serve:
+    runs-on: self-hosted
+
+    steps:
+      # Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # Build Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t nextjs-app .
+
+      # Run the Docker container
+      - name: Run Docker Container
+        run: |
+          docker run -d -p 1234:1234 --name nextjs-container nextjs-app
+
+      # Optionally, verify the app is running
+      - name: Test Application is Running
+        run: |
+          curl -I http://localhost:1234
