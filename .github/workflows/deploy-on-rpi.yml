@@ -37,7 +37,7 @@ jobs:
       # Run the development server on port 1234
       - name: Run Development Server
         run: |
-          npm run dev
+          npm run dev &
       # Optionally, verify the app is running
       - name: Test Application is Running
         run: |
