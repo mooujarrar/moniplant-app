@@ -1,4 +1,4 @@
-name: Build and Serve Next.js App
+name: Run Next.js App in Dev Mode
 
 on:
   push:
@@ -15,7 +15,7 @@ on:
         default: 'development'
 
 jobs:
-  build-and-serve:
+  run-nextjs:
     runs-on: self-hosted
 
     steps:
@@ -23,22 +23,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Setup Node.js
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16' # Specify the Node.js version
-
-      # Install dependencies
-      - name: Install Dependencies
+      # Build and run Docker container
+      - name: Run Docker Container
         run: |
-          npm install
+          docker build -t nextjs-app .
+          docker run -d -p 3030:3030 --name nextjs-container nextjs-app
 
-      # Run the development server on port 1234
-      - name: Run Development Server
-        run: |
-          npm run dev &
-      # Optionally, verify the app is running
+      # Verify the application is running
       - name: Test Application is Running
         run: |
           curl -I http://localhost:3030
