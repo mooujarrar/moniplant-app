@@ -27,4 +27,4 @@ jobs:
       - name: Run Docker Container
         run: |
           docker build -t nextjs-app .
-          docker run -d -p 3030:3030 --name nextjs-container nextjs-app
+          docker run -d -p 3030:3030 --name nextjs-container --network gateway-microservice_localnet nextjs-app
