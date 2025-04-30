@@ -49,6 +49,7 @@ export const Lobby = () => {
       <mesh position-y={-3} rotation-x={-Math.PI / 2}>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
+          mirror={0}
           blur={[100, 100]}
           resolution={1024}
           mixBlur={1}
