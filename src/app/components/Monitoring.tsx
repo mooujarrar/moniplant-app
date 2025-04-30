@@ -39,7 +39,7 @@ export const Monitoring = () => {
   };
 
   const { plants, loading: _loadingPlants, error: _errorPlants } = usePlants();
-  const { _types, loading: _loadingTypes, error: _errorTypes } = usePlantTypes();
+  const { types, loading: _loadingTypes, error: _errorTypes } = usePlantTypes();
 
 
   const plantsList = useMemo(() => {
