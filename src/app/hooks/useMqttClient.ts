@@ -10,7 +10,7 @@ type SensorData = {
 };
 
 const useMqttClient = (topics: string[] = []) => {
-  const brokerUrl = useMemo(() => process.env.MQTT_BROKER_URL || 'mqtt://localhost:8883', []); // Default broker URL
+  const brokerUrl = useMemo(() => process.env.MQTT_BROKER_URL || 'mqtt://192.168.0.33:8883', []); // Default broker URL
   const defaultOptions = useMemo(
     () => ({
       clientId: `mqtt_${Math.random().toString(16).slice(3)}`,
@@ -45,8 +45,7 @@ const useMqttClient = (topics: string[] = []) => {
 
     mqttClient.on('message', (topic, message: any) => {
       console.log(`Message received on topic ${topic}: ${message.toString()}`);
-      const sensorData = JSON.parse(message.toString()).data as SensorData;
-      setMessage(sensorData.sensor_id, sensorData.value);
+      setMessage(topic, message.toString());
     });
 
     mqttClient.on('error', (err) => {

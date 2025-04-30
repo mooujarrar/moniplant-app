@@ -13,27 +13,26 @@ export function PlantInfo(props) {
     const map = {};
     sensors.forEach((sensor) => {
       if (sensor.label === ESensorType.TEMPERATURE) {
-        map['Temperature'] = sensor.id;
+        map['Temperature'] = '/' + props.data.id + '/' + sensor.id;
       } else if (sensor.label === ESensorType.HUMIDITY) {
-        map['Humidity'] = sensor.id;
+        map['Humidity'] = '/' + props.data.id + '/' + sensor.id;
       } else if (sensor.label === ESensorType.SOIL_MOISTURE) {
-        map['Moisture'] = sensor.id;
+        map['Moisture'] = '/' + props.data.id + '/' + sensor.id;
       }
     });
     return map;
   }, [sensors]);
 
-  const topicList = useMemo(() => ["sensor.data.save"], []);
+  const sensorIds = useMemo(
+    () => sensors.map((sensor) => '/' + props.data.id + '/' + sensor.id),
+    [sensors, props.data.id]
+  );
 
-  useMqttClient(topicList);
+
+  useMqttClient(sensorIds);
   
   const { messages } = useMqttStore();
 
-  useEffect(() => {
-    console.log('messages', messages);
-    messages.data
-  }
-  , [messages]);
 
   return (
     <group {...props}>
