@@ -10,7 +10,7 @@ type SensorData = {
 };
 
 const useMqttClient = (topics: string[] = []) => {
-  const brokerUrl = useMemo(() => process.env.MQTT_BROKER_URL || 'mqtt://localhost:8883', []); // Default broker URL
+  const brokerUrl = useMemo(() => process.env.MQTT_BROKER_URL || 'mqtt://rpi5.local:8883', []); // Default broker URL
   const defaultOptions = useMemo(
     () => ({
       clientId: `mqtt_${Math.random().toString(16).slice(3)}`,
