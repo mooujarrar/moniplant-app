@@ -23,8 +23,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Cleanup existing Docker container if it exists
+      - name: Cleanup Existing Container
+        run: |
+          if [ "$(docker ps -aq -f name=moniplant-frontend)" ]; then
+            echo "Stopping and removing existing container..."
+            docker stop moniplant-frontend || true
+            docker rm moniplant-frontend || true
+          else
+            echo "No existing container to cleanup."
+          fi
+
       # Build and run Docker container
       - name: Run Docker Container
         run: |
           docker build -t nextjs-app .
-          docker run -d -p 3030:3030 --name nextjs-container --network gateway-microservice_localnet nextjs-app
+          docker run -d -p 3030:3030 --name moniplant-frontend --network gateway-microservice_localnet nextjs-app
