@@ -57,7 +57,6 @@ export const Lobby = () => {
           roughness={1}
           depthScale={1}
           opacity={0.9}
-          transparent
           minDepthThreshold={0.4}
           maxDepthThreshold={1.4}
           color='#333'

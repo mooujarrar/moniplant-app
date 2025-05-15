@@ -102,3 +102,33 @@ export const useRetrieveSensors = (plantId: string) => {
 
   return { sensors, loading, error };
 };
+
+
+export const useRetrieveSensorsLatestData = (topic: string) => {
+  const [data , setData] = useState<any>();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<null | string>(null);
+
+  useEffect(() => {
+    const fetchSensorLatestData = async () => {
+      try {
+        const response = await fetch(`/api/sensor/sensordata${topic}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch sensors');
+        }
+        const data = await response.json();
+        setData(data);
+      } catch (err: any) {
+        setError(err.message || 'Unknown error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (topic) {
+      fetchSensorLatestData();
+    }
+  }, [topic]);
+
+  return { data, loading, error };
+};
