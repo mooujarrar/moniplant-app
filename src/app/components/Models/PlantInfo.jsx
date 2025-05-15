@@ -31,11 +31,15 @@ export function PlantInfo(props) {
   const tempData = useRetrieveSensorsLatestData(sensorTypesMap['Temperature'])?.data;
   const humidityData = useRetrieveSensorsLatestData(sensorTypesMap['Humidity'])?.data;
   const moistureData = useRetrieveSensorsLatestData(sensorTypesMap['Moisture'])?.data;
-  
+
   useMqttClient(sensorIds);
   
   const { messages } = useMqttStore();
 
+  const date = useMemo(() => {
+    return Date.now() / 1000;
+  }
+  , [messages]);
 
   return (
     <group {...props}>
@@ -86,7 +90,7 @@ export function PlantInfo(props) {
         distanceFactor={1}
       >
         {messages && sensorTypesMap && <InfoCard
-          timestamp={messages[sensorTypesMap['Moisture']] ? Date.now() / 1000 : moistureData?.ts}
+          timestamp={messages[sensorTypesMap['Moisture']] ? date : moistureData?.ts}
           moistureValue={messages[sensorTypesMap['Moisture']] ?? moistureData?.value}
           temperatureValue={messages[sensorTypesMap['Temperature']] ?? tempData?.value}
           humidityValue={messages[sensorTypesMap['Humidity']] ?? humidityData?.value}
