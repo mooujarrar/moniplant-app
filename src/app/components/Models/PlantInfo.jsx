@@ -94,6 +94,7 @@ export function PlantInfo(props) {
           moistureValue={messages[sensorTypesMap['Moisture']] ?? moistureData?.value}
           temperatureValue={messages[sensorTypesMap['Temperature']] ?? tempData?.value}
           humidityValue={messages[sensorTypesMap['Humidity']] ?? humidityData?.value}
+          moistureTopic={sensorTypesMap['Moisture']}
         />}
       </Html>
     </group>

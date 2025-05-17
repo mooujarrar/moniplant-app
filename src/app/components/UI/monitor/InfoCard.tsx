@@ -8,6 +8,7 @@ interface InfoCardProps {
   // Add any additional props if needed
   timestamp?: string;
   moistureValue?: string;
+  moistureTopic: string;
   temperatureValue?: string;
   humidityValue?: string;
   moistureGraphData?: any; // Adjust type as needed
@@ -16,6 +17,7 @@ interface InfoCardProps {
 const InfoCard: React.FC<InfoCardProps> = ({
   timestamp,
   moistureValue,
+  moistureTopic,
   temperatureValue,
   humidityValue,
 }) => {
@@ -26,7 +28,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
       <Moisture value={moistureValue} />
       <Temperature value={temperatureValue} />
       <Humidity value={humidityValue} />
-      <MoistureGraph />
+      <MoistureGraph moistureTopic={moistureTopic} />
     </div>
   );
 };
