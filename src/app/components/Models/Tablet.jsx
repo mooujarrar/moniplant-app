@@ -7,11 +7,11 @@ import { useGLTF } from "@react-three/drei";
 import React from "react";
 import { PlantInfo } from "./PlantInfo";
 
-export function Tablet(props) {
+export function Tablet({ visible = true, ...props }) {
   const { nodes, materials } = useGLTF("/models/Tablet.glb");
   return (
-    <group {...props} position-x={-2} dispose={null}>
-      <PlantInfo position-x={-0.055} position-y={0.22} {...props} />
+    <group {...props} visible={visible} position-x={-1.5} dispose={null}>
+      <PlantInfo visible={visible} position-x={-0.055} position-y={0.22} {...props} />
       <group rotation={[Math.PI / 2, 0, 0]} scale={0.0382}>
         <mesh
           geometry={nodes.ChamferBox003.geometry}

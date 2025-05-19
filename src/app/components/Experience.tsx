@@ -65,17 +65,10 @@ export const Experience = () => {
     if (cameraControl) {
       if (activePage === EPage.MONITOR) {
         if (activePortal) {
-          const targetPosition = new THREE.Vector3();
-          scene.getObjectByName(activePortal)?.getWorldPosition(targetPosition);
-          cameraControl.setLookAt(
-            CAMERA_INSIDE_PORTAL_POSITION.x,
-            CAMERA_INSIDE_PORTAL_POSITION.y,
-            CAMERA_INSIDE_PORTAL_POSITION.z,
-            targetPosition.x,
-            targetPosition.y,
-            targetPosition.z,
-            true
-          );
+          const fittingBox = scene.getObjectByName('tabletBox');
+          if (fittingBox) {
+            cameraControl.fitToBox(fittingBox, true);
+          }
         } else {
           cameraControl.setLookAt(
             CAMERA_INITIAL_POSITION.x,

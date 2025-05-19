@@ -6,7 +6,7 @@ import useMqttClient from '@/app/hooks/useMqttClient';
 import { useMqttStore } from '../state-management/mqttStore';
 import { ESensorType } from '@/app/utils/ESensorType';
 
-export function PlantInfo(props) {
+export function PlantInfo({ visible = true, ...props }) {
   const { sensors } = useRetrieveSensors(props.data.id);
 
   const sensorTypesMap = useMemo(() => {
@@ -42,7 +42,7 @@ export function PlantInfo(props) {
   , [messages]);
 
   return (
-    <group {...props}>
+    <group visible={visible} {...props}>
       {/*<Line
         points={[
           [-0.4, -0.1, -0.8],
@@ -80,7 +80,10 @@ export function PlantInfo(props) {
         lineWidth={2}
     />*/}
       <Html
-        style={{ userSelect: 'none' }}
+        style={{
+            display: visible ? "block" : "none", // Hide or show the Html element
+            userSelect: 'none'
+        }}
         as='div'
         className='wrapper'
         castShadow
