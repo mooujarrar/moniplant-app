@@ -22,7 +22,7 @@ const InfoCard: React.FC<InfoCardProps> = ({
   humidityValue,
 }) => {
   return (
-    <div className='info-card h-full w-full overflow-auto bg-opacity-50 bg-gradient-to-r from-green-200 to-blue-200 p-6 text-green-700'>
+    <div className='info-card h-full w-full overflow-auto box-border bg-opacity-50 bg-gradient-to-r from-green-200 to-blue-200 p-6 text-green-700'>
       <h2 className='mb-4 text-4xl font-bold'>Plant Information</h2>
       <p className='mb-2 text-lg'>Latest update: {new Date(Number(timestamp)*1000).toLocaleString()}</p>
       <Moisture value={moistureValue} />
