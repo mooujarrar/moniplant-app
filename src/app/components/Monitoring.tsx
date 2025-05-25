@@ -38,8 +38,8 @@ export const Monitoring = () => {
     setHoveredPortal(_hoveredPortal);
   };
 
-  const { plants, loading: _loadingPlants, error: _errorPlants } = usePlants();
-  const { types, loading: _loadingTypes, error: _errorTypes } = usePlantTypes();
+  const { plants } = usePlants();
+  //const { types, loading: _loadingTypes, error: _errorTypes } = usePlantTypes();
 
 
   const plantsList = useMemo(() => {
