@@ -3,17 +3,18 @@ import { Monitoring } from './Monitoring';
 import { EPage, useActivePageStore } from './state-management/activePage';
 import { usePortalStore } from './state-management/activePortal';
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
 import { useThree } from '@react-three/fiber';
 import { Lobby } from './Lobby';
 import {
   CAMERA_INITIAL_POSITION,
-  CAMERA_INSIDE_PORTAL_POSITION,
+  CONFIG_FITTING_BOX_NAME,
+  CONFIG_POSITION,
   HOME_POSITION,
   LOBBY_FITTING_BOX_NAME,
   MONITOR_FITTING_BOX_NAME,
   MONITOR_POSITION,
 } from './Positions';
+import { Configuration } from './Configuration';
 
 export const Experience = () => {
   const { activePage } = useActivePageStore();
@@ -37,6 +38,12 @@ export const Experience = () => {
         }
       } else if (activePage === EPage.MONITOR && activePortal === null) {
         fittingBox = scene.getObjectByName(MONITOR_FITTING_BOX_NAME);
+        if (fittingBox) {
+          cameraControl.fitToBox(fittingBox, true);
+        }
+      }
+       else if (activePage === EPage.CONFIG) {
+        fittingBox = scene.getObjectByName(CONFIG_FITTING_BOX_NAME);
         if (fittingBox) {
           cameraControl.fitToBox(fittingBox, true);
         }
@@ -92,6 +99,17 @@ export const Experience = () => {
           true
         );
         fitCamera();
+      } else if (activePage === EPage.CONFIG) {
+        cameraControl.setLookAt(
+          CAMERA_INITIAL_POSITION.x,
+          CAMERA_INITIAL_POSITION.y,
+          CAMERA_INITIAL_POSITION.z,
+          CONFIG_POSITION.x,
+          CONFIG_POSITION.y,
+          CONFIG_POSITION.z,
+          true
+        );
+        fitCamera();
       }
     }
   }, [activePage, activePortal, scene]);
@@ -107,8 +125,9 @@ export const Experience = () => {
         mouseButtons={{ wheel: 0, left: 0, right: 0, middle: 0 }}
         touches={{ one: 0, two: 0, three: 0 }}
       />
-      <Monitoring />
       <Lobby />
+      <Monitoring />
+      <Configuration />
     </>
   );
 };
